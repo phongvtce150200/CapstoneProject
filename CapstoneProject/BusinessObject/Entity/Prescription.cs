@@ -13,6 +13,6 @@ namespace BusinessObject.Entity
         public int InvoiceId { get; set; }
         [ForeignKey("InvoiceId")]
         public Invoice Invoice { get; set; }
-        public ICollection<Medicine> medicines { get; set; }
+        public ICollection<PrescriptionDetails> PrescriptionDetails { get; set; }
     }
 }

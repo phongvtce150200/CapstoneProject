@@ -9,8 +9,6 @@ namespace BusinessObject.Configuration
         public void Configure(EntityTypeBuilder<Appointment> builder)
         {
             builder.ToTable("Appointment");
-
-            builder.Property(x => x.Reason).IsRequired().HasMaxLength(150);
         }
     }
 }

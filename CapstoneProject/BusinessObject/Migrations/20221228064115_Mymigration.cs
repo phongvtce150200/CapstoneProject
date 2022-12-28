@@ -8,6 +8,28 @@ namespace BusinessObject.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Medicine",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MedicineName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDelete = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Medicine", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Queue",
                 columns: table => new
                 {
@@ -342,21 +364,13 @@ namespace BusinessObject.Migrations
                 name: "ScheduleDetails",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ScheduleId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDelete = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ScheduleDetails", x => x.Id);
+                    table.PrimaryKey("PK_ScheduleDetails", x => x.ScheduleId);
                     table.ForeignKey(
                         name: "FK_ScheduleDetails_Schedule_ScheduleId",
                         column: x => x.ScheduleId,
@@ -478,32 +492,44 @@ namespace BusinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Medicine",
+                name: "PrescriptionDetails",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MedicineName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     PrescriptionId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDelete = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    MedicineId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Medicine", x => x.Id);
+                    table.PrimaryKey("PK_PrescriptionDetails", x => new { x.PrescriptionId, x.MedicineId });
                     table.ForeignKey(
-                        name: "FK_Medicine_Prescription_PrescriptionId",
+                        name: "FK_PrescriptionDetails_Medicine_MedicineId",
+                        column: x => x.MedicineId,
+                        principalTable: "Medicine",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PrescriptionDetails_Prescription_PrescriptionId",
                         column: x => x.PrescriptionId,
                         principalTable: "Prescription",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Medicine",
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "DeletedDate", "Description", "Expiration", "IsDelete", "MedicineName", "Price", "UpdatedBy", "UpdatedDate" },
+                values: new object[,]
+                {
+                    { 1, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Abacavir Sulfate", 2000m, null, null },
+                    { 2, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Acular", 2000m, null, null },
+                    { 3, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Adcirca", 2000m, null, null },
+                    { 4, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Betagan", 2000m, null, null },
+                    { 5, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Blocadren", 2000m, null, null },
+                    { 6, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Caverject", 2000m, null, null },
+                    { 7, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Copaxone", 2000m, null, null },
+                    { 8, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "DesOwen", 2000m, null, null },
+                    { 9, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "DesOwen", 2000m, null, null },
+                    { 10, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Fludara", 2000m, null, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -533,11 +559,6 @@ namespace BusinessObject.Migrations
                 table: "Invoice",
                 column: "AppointmentId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Medicine_PrescriptionId",
-                table: "Medicine",
-                column: "PrescriptionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Nurse_UserId",
@@ -570,6 +591,11 @@ namespace BusinessObject.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PrescriptionDetails_MedicineId",
+                table: "PrescriptionDetails",
+                column: "MedicineId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
                 table: "RoleClaims",
                 column: "RoleId");
@@ -586,11 +612,6 @@ namespace BusinessObject.Migrations
                 table: "Schedule",
                 column: "DoctorId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ScheduleDetails_ScheduleId",
-                table: "ScheduleDetails",
-                column: "ScheduleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Service_AppointmentId",
@@ -634,10 +655,10 @@ namespace BusinessObject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Medicine");
+                name: "Nurse");
 
             migrationBuilder.DropTable(
-                name: "Nurse");
+                name: "PrescriptionDetails");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
@@ -662,6 +683,9 @@ namespace BusinessObject.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Medicine");
 
             migrationBuilder.DropTable(
                 name: "Prescription");

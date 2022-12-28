@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221228040616_Mymigration")]
-    partial class Mymigration
+    [Migration("20221228072912_AppointmentDetails")]
+    partial class AppointmentDetails
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,11 +46,6 @@ namespace BusinessObject.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -64,6 +59,24 @@ namespace BusinessObject.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Appointment");
+                });
+
+            modelBuilder.Entity("BusinessObject.Entity.AppointmentDetails", b =>
+                {
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AppointmentId", "ServiceId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("appointmentDetails");
                 });
 
             modelBuilder.Entity("BusinessObject.Entity.Doctor", b =>
@@ -187,9 +200,6 @@ namespace BusinessObject.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("PrescriptionId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -201,9 +211,109 @@ namespace BusinessObject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PrescriptionId");
-
                     b.ToTable("Medicine");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            Description = "Non-Description",
+                            Expiration = new DateTime(2026, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            IsDelete = false,
+                            MedicineName = "Abacavir Sulfate",
+                            Price = 2000m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            Description = "Non-Description",
+                            Expiration = new DateTime(2026, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            IsDelete = false,
+                            MedicineName = "Acular",
+                            Price = 2000m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            Description = "Non-Description",
+                            Expiration = new DateTime(2026, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            IsDelete = false,
+                            MedicineName = "Adcirca",
+                            Price = 2000m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            Description = "Non-Description",
+                            Expiration = new DateTime(2026, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            IsDelete = false,
+                            MedicineName = "Betagan",
+                            Price = 2000m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            Description = "Non-Description",
+                            Expiration = new DateTime(2026, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            IsDelete = false,
+                            MedicineName = "Blocadren",
+                            Price = 2000m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            Description = "Non-Description",
+                            Expiration = new DateTime(2026, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            IsDelete = false,
+                            MedicineName = "Caverject",
+                            Price = 2000m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            Description = "Non-Description",
+                            Expiration = new DateTime(2026, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            IsDelete = false,
+                            MedicineName = "Copaxone",
+                            Price = 2000m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            Description = "Non-Description",
+                            Expiration = new DateTime(2026, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            IsDelete = false,
+                            MedicineName = "DesOwen",
+                            Price = 2000m
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            Description = "Non-Description",
+                            Expiration = new DateTime(2026, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            IsDelete = false,
+                            MedicineName = "DesOwen",
+                            Price = 2000m
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            Description = "Non-Description",
+                            Expiration = new DateTime(2026, 12, 28, 7, 29, 12, 403, DateTimeKind.Utc).AddTicks(2886),
+                            IsDelete = false,
+                            MedicineName = "Fludara",
+                            Price = 2000m
+                        });
                 });
 
             modelBuilder.Entity("BusinessObject.Entity.Nurse", b =>
@@ -332,6 +442,21 @@ namespace BusinessObject.Migrations
                     b.ToTable("Prescription");
                 });
 
+            modelBuilder.Entity("BusinessObject.Entity.PrescriptionDetails", b =>
+                {
+                    b.Property<int>("PrescriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MedicineId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PrescriptionId", "MedicineId");
+
+                    b.HasIndex("MedicineId");
+
+                    b.ToTable("prescriptionDetails");
+                });
+
             modelBuilder.Entity("BusinessObject.Entity.Queue", b =>
                 {
                     b.Property<int>("Id")
@@ -415,41 +540,16 @@ namespace BusinessObject.Migrations
 
             modelBuilder.Entity("BusinessObject.Entity.ScheduleDetails", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("ScheduleId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ScheduleId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ScheduleId");
+                    b.HasKey("ScheduleId");
 
                     b.ToTable("ScheduleDetails");
                 });
@@ -460,9 +560,6 @@ namespace BusinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AppointmentId")
-                        .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -492,9 +589,41 @@ namespace BusinessObject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentId");
-
                     b.ToTable("Service");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 404, DateTimeKind.Utc).AddTicks(8503),
+                            IsDelete = false,
+                            ServiceName = "Normal",
+                            ServicePrice = 250000m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 404, DateTimeKind.Utc).AddTicks(8503),
+                            IsDelete = false,
+                            ServiceName = "MRI scan",
+                            ServicePrice = 300000m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 404, DateTimeKind.Utc).AddTicks(8503),
+                            IsDelete = false,
+                            ServiceName = "General examination",
+                            ServicePrice = 500000m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 29, 12, 404, DateTimeKind.Utc).AddTicks(8503),
+                            IsDelete = false,
+                            ServiceName = "Detect Alzheimer's Disease",
+                            ServicePrice = 1000000m
+                        });
                 });
 
             modelBuilder.Entity("BusinessObject.Entity.Test", b =>
@@ -793,6 +922,25 @@ namespace BusinessObject.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("BusinessObject.Entity.AppointmentDetails", b =>
+                {
+                    b.HasOne("BusinessObject.Entity.Appointment", "Appointment")
+                        .WithMany("AppointmentDetails")
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BusinessObject.Entity.Service", "Service")
+                        .WithMany("AppointmentDetails")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("Service");
+                });
+
             modelBuilder.Entity("BusinessObject.Entity.Doctor", b =>
                 {
                     b.HasOne("BusinessObject.Entity.Queue", "Queue")
@@ -819,17 +967,6 @@ namespace BusinessObject.Migrations
                         .IsRequired();
 
                     b.Navigation("Appointment");
-                });
-
-            modelBuilder.Entity("BusinessObject.Entity.Medicine", b =>
-                {
-                    b.HasOne("BusinessObject.Entity.Prescription", "Prescription")
-                        .WithMany("medicines")
-                        .HasForeignKey("PrescriptionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Prescription");
                 });
 
             modelBuilder.Entity("BusinessObject.Entity.Nurse", b =>
@@ -875,6 +1012,25 @@ namespace BusinessObject.Migrations
                     b.Navigation("Invoice");
                 });
 
+            modelBuilder.Entity("BusinessObject.Entity.PrescriptionDetails", b =>
+                {
+                    b.HasOne("BusinessObject.Entity.Medicine", "Medicine")
+                        .WithMany("PrescriptionDetails")
+                        .HasForeignKey("MedicineId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BusinessObject.Entity.Prescription", "Prescription")
+                        .WithMany("PrescriptionDetails")
+                        .HasForeignKey("PrescriptionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Medicine");
+
+                    b.Navigation("Prescription");
+                });
+
             modelBuilder.Entity("BusinessObject.Entity.Schedule", b =>
                 {
                     b.HasOne("BusinessObject.Entity.Doctor", "Doctor")
@@ -895,17 +1051,6 @@ namespace BusinessObject.Migrations
                         .IsRequired();
 
                     b.Navigation("Schedule");
-                });
-
-            modelBuilder.Entity("BusinessObject.Entity.Service", b =>
-                {
-                    b.HasOne("BusinessObject.Entity.Appointment", "Appointment")
-                        .WithMany("services")
-                        .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("BusinessObject.Entity.Test", b =>
@@ -972,9 +1117,9 @@ namespace BusinessObject.Migrations
 
             modelBuilder.Entity("BusinessObject.Entity.Appointment", b =>
                 {
-                    b.Navigation("Invoice");
+                    b.Navigation("AppointmentDetails");
 
-                    b.Navigation("services");
+                    b.Navigation("Invoice");
 
                     b.Navigation("Test");
                 });
@@ -991,6 +1136,11 @@ namespace BusinessObject.Migrations
                     b.Navigation("Prescription");
                 });
 
+            modelBuilder.Entity("BusinessObject.Entity.Medicine", b =>
+                {
+                    b.Navigation("PrescriptionDetails");
+                });
+
             modelBuilder.Entity("BusinessObject.Entity.Patient", b =>
                 {
                     b.Navigation("prescriptions");
@@ -998,7 +1148,7 @@ namespace BusinessObject.Migrations
 
             modelBuilder.Entity("BusinessObject.Entity.Prescription", b =>
                 {
-                    b.Navigation("medicines");
+                    b.Navigation("PrescriptionDetails");
                 });
 
             modelBuilder.Entity("BusinessObject.Entity.Queue", b =>
@@ -1011,6 +1161,11 @@ namespace BusinessObject.Migrations
             modelBuilder.Entity("BusinessObject.Entity.Schedule", b =>
                 {
                     b.Navigation("ScheduleDetails");
+                });
+
+            modelBuilder.Entity("BusinessObject.Entity.Service", b =>
+                {
+                    b.Navigation("AppointmentDetails");
                 });
 
             modelBuilder.Entity("BusinessObject.Entity.User", b =>

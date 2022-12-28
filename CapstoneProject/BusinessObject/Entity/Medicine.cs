@@ -1,5 +1,6 @@
 ﻿using BusinessObject.Base;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessObject.Entity
@@ -10,8 +11,6 @@ namespace BusinessObject.Entity
         public decimal Price { get; set; }
         public DateTime Expiration { get; set; }
         public string Description { get; set; }
-        public int PrescriptionId { get; set; }
-        [ForeignKey("PrescriptionId")]
-        public Prescription Prescription { get; set; }
+        public ICollection<PrescriptionDetails> PrescriptionDetails { get; set; }
     }
 }

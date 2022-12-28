@@ -4,14 +4,16 @@ using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221228073016_AppointmentDetailsConfiguration")]
+    partial class AppointmentDetailsConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,9 +219,9 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             Description = "Non-Description",
-                            Expiration = new DateTime(2026, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            Expiration = new DateTime(2026, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             IsDelete = false,
                             MedicineName = "Abacavir Sulfate",
                             Price = 2000m
@@ -227,9 +229,9 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             Description = "Non-Description",
-                            Expiration = new DateTime(2026, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            Expiration = new DateTime(2026, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             IsDelete = false,
                             MedicineName = "Acular",
                             Price = 2000m
@@ -237,9 +239,9 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             Description = "Non-Description",
-                            Expiration = new DateTime(2026, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            Expiration = new DateTime(2026, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             IsDelete = false,
                             MedicineName = "Adcirca",
                             Price = 2000m
@@ -247,9 +249,9 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             Description = "Non-Description",
-                            Expiration = new DateTime(2026, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            Expiration = new DateTime(2026, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             IsDelete = false,
                             MedicineName = "Betagan",
                             Price = 2000m
@@ -257,9 +259,9 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             Description = "Non-Description",
-                            Expiration = new DateTime(2026, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            Expiration = new DateTime(2026, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             IsDelete = false,
                             MedicineName = "Blocadren",
                             Price = 2000m
@@ -267,9 +269,9 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             Description = "Non-Description",
-                            Expiration = new DateTime(2026, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            Expiration = new DateTime(2026, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             IsDelete = false,
                             MedicineName = "Caverject",
                             Price = 2000m
@@ -277,9 +279,9 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             Description = "Non-Description",
-                            Expiration = new DateTime(2026, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            Expiration = new DateTime(2026, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             IsDelete = false,
                             MedicineName = "Copaxone",
                             Price = 2000m
@@ -287,9 +289,9 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             Description = "Non-Description",
-                            Expiration = new DateTime(2026, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            Expiration = new DateTime(2026, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             IsDelete = false,
                             MedicineName = "DesOwen",
                             Price = 2000m
@@ -297,9 +299,9 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             Description = "Non-Description",
-                            Expiration = new DateTime(2026, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            Expiration = new DateTime(2026, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             IsDelete = false,
                             MedicineName = "DesOwen",
                             Price = 2000m
@@ -307,9 +309,9 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             Description = "Non-Description",
-                            Expiration = new DateTime(2026, 12, 28, 7, 59, 40, 228, DateTimeKind.Utc).AddTicks(9647),
+                            Expiration = new DateTime(2026, 12, 28, 7, 30, 16, 307, DateTimeKind.Utc).AddTicks(2270),
                             IsDelete = false,
                             MedicineName = "Fludara",
                             Price = 2000m
@@ -595,7 +597,7 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 230, DateTimeKind.Utc).AddTicks(2796),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 308, DateTimeKind.Utc).AddTicks(7527),
                             IsDelete = false,
                             ServiceName = "Normal",
                             ServicePrice = 250000m
@@ -603,7 +605,7 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 230, DateTimeKind.Utc).AddTicks(2796),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 308, DateTimeKind.Utc).AddTicks(7527),
                             IsDelete = false,
                             ServiceName = "MRI scan",
                             ServicePrice = 300000m
@@ -611,7 +613,7 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 230, DateTimeKind.Utc).AddTicks(2796),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 308, DateTimeKind.Utc).AddTicks(7527),
                             IsDelete = false,
                             ServiceName = "General examination",
                             ServicePrice = 500000m
@@ -619,7 +621,7 @@ namespace BusinessObject.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 230, DateTimeKind.Utc).AddTicks(2796),
+                            CreatedDate = new DateTime(2022, 12, 28, 7, 30, 16, 308, DateTimeKind.Utc).AddTicks(7527),
                             IsDelete = false,
                             ServiceName = "Detect Alzheimer's Disease",
                             ServicePrice = 1000000m
@@ -770,104 +772,6 @@ namespace BusinessObject.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "318a5ae0-53dd-4ec2-931d-9ff0e3290d86",
-                            AccessFailedCount = 0,
-                            Address = "Admin",
-                            BirthDay = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "8d435c9e-bb7e-42ef-b9a7-a98783cb08a0",
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 231, DateTimeKind.Utc).AddTicks(6826),
-                            Email = "admin@clinc.com",
-                            EmailConfirmed = true,
-                            FirstName = "admin",
-                            Gender = true,
-                            IsDelete = false,
-                            LastName = "admin",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@CLINIC.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGL9SSbzUQZ0gufTul2N+5CrsnUZ54yHJPmcXokJUCQ1J/RoTNCWBzy0fHKtkVCnBg==",
-                            PhoneNumber = "0909090090",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "20ccb861-4920-4289-ab82-e49def9d8830",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        },
-                        new
-                        {
-                            Id = "66bc5ee9-e946-4cf1-9a54-517f35e4b4e9",
-                            AccessFailedCount = 0,
-                            Address = "TP HCM",
-                            BirthDay = new DateTime(2001, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c1364239-2307-4977-bba6-d632bed7fd12",
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 231, DateTimeKind.Utc).AddTicks(6826),
-                            Email = "v.thanhphong1712@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Thanh Phong",
-                            Gender = true,
-                            IsDelete = false,
-                            LastName = "Võ",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "V.THANHPHONG1712@GMAIL.COM",
-                            NormalizedUserName = "PHONGVT1712",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIp0PTzF575HvuX/6zgU1JtT/EG9NTy9MIBHZeSocPCiZAzKymjq/eGNzGwAqHVX9g==",
-                            PhoneNumber = "0769339456",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "15a2c061-1056-40b9-89b2-7d34922f2d97",
-                            TwoFactorEnabled = false,
-                            UserName = "phongvt1712"
-                        },
-                        new
-                        {
-                            Id = "f9ce7ce9-0491-48ff-898c-6e6b5e1f65ae",
-                            AccessFailedCount = 0,
-                            Address = "Cần Thơ",
-                            BirthDay = new DateTime(2001, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "574309a1-3cd5-4234-b7c5-f6f4e073fb97",
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 231, DateTimeKind.Utc).AddTicks(6826),
-                            Email = "hungle@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Quốc Hùng",
-                            Gender = false,
-                            IsDelete = false,
-                            LastName = "Lê",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "HUNGLE@GMAIL.COM",
-                            NormalizedUserName = "HUNGLE",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPIpo719YROWQHSeV+cD2XueTTwXI+aXP9HDNWOeDsoGrL6vAiAR57j+20cuVQdR2A==",
-                            PhoneNumber = "0123456789",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "6c0be8a9-af60-489d-99e9-3ace866f7897",
-                            TwoFactorEnabled = false,
-                            UserName = "hungle"
-                        },
-                        new
-                        {
-                            Id = "59001bf3-0f38-4754-b656-e5981f3406ff",
-                            AccessFailedCount = 0,
-                            Address = "Bến Tre",
-                            BirthDay = new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "ac2acc3a-5100-4cbc-838f-042db50254f9",
-                            CreatedDate = new DateTime(2022, 12, 28, 7, 59, 40, 231, DateTimeKind.Utc).AddTicks(6826),
-                            Email = "hauphan@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Công Hậu",
-                            Gender = false,
-                            IsDelete = false,
-                            LastName = "Phan",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "HAUPHAN@GMAIL.COM",
-                            NormalizedUserName = "HAUPHAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAMK62TUb9OO8tv9BQwsyV33Bb2jTGDLZ6X+uBeZ2WNXOOSOMykoVr1wHmo6BaIBKw==",
-                            PhoneNumber = "0808080080",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "0ef47f77-034a-4aa1-ae35-c975365d80c4",
-                            TwoFactorEnabled = false,
-                            UserName = "hauphan"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -895,36 +799,6 @@ namespace BusinessObject.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1dbd138d-3f89-466f-86cb-fd0d7a915e31",
-                            ConcurrencyStamp = "0e01fc67-1566-4e45-babd-d02200ce3b83",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "e98b424a-ab2d-43c5-b655-2a969cfe9ddc",
-                            ConcurrencyStamp = "92a7493a-1cde-45b8-99d2-8bda666f8f26",
-                            Name = "Doctor",
-                            NormalizedName = "DOCTOR"
-                        },
-                        new
-                        {
-                            Id = "f0cc7ba3-c213-4a34-8165-ec3a3d9ae1af",
-                            ConcurrencyStamp = "5d5585bb-7717-4b80-857f-952d08c0892d",
-                            Name = "Nurse",
-                            NormalizedName = "NURSE"
-                        },
-                        new
-                        {
-                            Id = "3f7c4489-b9d7-4f59-8401-128d917290c8",
-                            ConcurrencyStamp = "1fde649f-65ee-42b0-9e9e-1773ed75c6b9",
-                            Name = "Patient",
-                            NormalizedName = "PATIENT"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

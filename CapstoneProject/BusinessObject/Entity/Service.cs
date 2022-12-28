@@ -9,8 +9,6 @@ namespace BusinessObject.Entity
     {
         public string ServiceName { get; set; }
         public decimal ServicePrice { get; set; }
-        public int AppointmentId { get; set; }
-        [ForeignKey("AppointmentId")]
-        public Appointment Appointment { get; set; }
+        public ICollection<AppointmentDetails> AppointmentDetails { get; set; }
     }
 }
