@@ -12,9 +12,7 @@ namespace BusinessObject.Entity
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
-        public int? QueueId { get; set; }
-        [ForeignKey("QueueId")]
-        public Queue Queue { get; set; }
+        public ICollection<Queue> queues { get; set; }
         public ICollection<Appointment> appointments { get; set; }
         public Schedule Schedule { get; set; }
     }

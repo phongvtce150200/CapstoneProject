@@ -30,29 +30,6 @@ namespace BusinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Queue",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Pulse = table.Column<int>(type: "int", nullable: false),
-                    BloodPressure = table.Column<int>(type: "int", nullable: false),
-                    Tempurature = table.Column<int>(type: "int", nullable: false),
-                    Weight = table.Column<int>(type: "int", nullable: false),
-                    Height = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDelete = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Queue", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -67,6 +44,26 @@ namespace BusinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Service",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ServiceName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    ServicePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDelete = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Service", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -75,7 +72,7 @@ namespace BusinessObject.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BirthDay = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Gender = table.Column<bool>(type: "bit", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
@@ -133,7 +130,6 @@ namespace BusinessObject.Migrations
                     Qualification = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Experience = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    QueueId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false),
@@ -144,12 +140,6 @@ namespace BusinessObject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Doctor", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Doctor_Queue_QueueId",
-                        column: x => x.QueueId,
-                        principalTable: "Queue",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Doctor_Users_UserId",
                         column: x => x.UserId,
@@ -192,7 +182,6 @@ namespace BusinessObject.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    QueueId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false),
@@ -203,12 +192,6 @@ namespace BusinessObject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Patient", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Patient_Queue_QueueId",
-                        column: x => x.QueueId,
-                        principalTable: "Queue",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Patient_Users_UserId",
                         column: x => x.UserId,
@@ -333,7 +316,6 @@ namespace BusinessObject.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Reason = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
                     PatientId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -361,6 +343,43 @@ namespace BusinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Queue",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PatientId = table.Column<int>(type: "int", nullable: false),
+                    DoctorId = table.Column<int>(type: "int", nullable: false),
+                    Pulse = table.Column<int>(type: "int", nullable: false),
+                    BloodPressure = table.Column<int>(type: "int", nullable: false),
+                    Tempurature = table.Column<int>(type: "int", nullable: false),
+                    Weight = table.Column<int>(type: "int", nullable: false),
+                    Height = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDelete = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Queue", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Queue_Doctor_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Queue_Patient_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Patient",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ScheduleDetails",
                 columns: table => new
                 {
@@ -375,6 +394,31 @@ namespace BusinessObject.Migrations
                         name: "FK_ScheduleDetails_Schedule_ScheduleId",
                         column: x => x.ScheduleId,
                         principalTable: "Schedule",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppointmentDetails",
+                columns: table => new
+                {
+                    AppointmentId = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppointmentDetails", x => new { x.AppointmentId, x.ServiceId });
+                    table.ForeignKey(
+                        name: "FK_AppointmentDetails_Appointment_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppointmentDetails_Service_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Service",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -399,33 +443,6 @@ namespace BusinessObject.Migrations
                     table.PrimaryKey("PK_Invoice", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Invoice_Appointment_AppointmentId",
-                        column: x => x.AppointmentId,
-                        principalTable: "Appointment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Service",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    ServicePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AppointmentId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDelete = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Service", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Service_Appointment_AppointmentId",
                         column: x => x.AppointmentId,
                         principalTable: "Appointment",
                         principalColumn: "Id",
@@ -492,7 +509,7 @@ namespace BusinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PrescriptionDetails",
+                name: "prescriptionDetails",
                 columns: table => new
                 {
                     PrescriptionId = table.Column<int>(type: "int", nullable: false),
@@ -500,15 +517,15 @@ namespace BusinessObject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PrescriptionDetails", x => new { x.PrescriptionId, x.MedicineId });
+                    table.PrimaryKey("PK_prescriptionDetails", x => new { x.PrescriptionId, x.MedicineId });
                     table.ForeignKey(
-                        name: "FK_PrescriptionDetails_Medicine_MedicineId",
+                        name: "FK_prescriptionDetails_Medicine_MedicineId",
                         column: x => x.MedicineId,
                         principalTable: "Medicine",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PrescriptionDetails_Prescription_PrescriptionId",
+                        name: "FK_prescriptionDetails_Prescription_PrescriptionId",
                         column: x => x.PrescriptionId,
                         principalTable: "Prescription",
                         principalColumn: "Id",
@@ -520,16 +537,49 @@ namespace BusinessObject.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "DeletedDate", "Description", "Expiration", "IsDelete", "MedicineName", "Price", "UpdatedBy", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Abacavir Sulfate", 2000m, null, null },
-                    { 2, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Acular", 2000m, null, null },
-                    { 3, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Adcirca", 2000m, null, null },
-                    { 4, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Betagan", 2000m, null, null },
-                    { 5, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Blocadren", 2000m, null, null },
-                    { 6, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Caverject", 2000m, null, null },
-                    { 7, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Copaxone", 2000m, null, null },
-                    { 8, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "DesOwen", 2000m, null, null },
-                    { 9, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "DesOwen", 2000m, null, null },
-                    { 10, null, new DateTime(2022, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), null, "Non-Description", new DateTime(2026, 12, 28, 6, 41, 15, 272, DateTimeKind.Utc).AddTicks(6240), false, "Fludara", 2000m, null, null }
+                    { 1, null, new DateTime(2022, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), null, "Non-Description", new DateTime(2026, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), false, "Abacavir Sulfate", 2000m, null, null },
+                    { 2, null, new DateTime(2022, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), null, "Non-Description", new DateTime(2026, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), false, "Acular", 2000m, null, null },
+                    { 3, null, new DateTime(2022, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), null, "Non-Description", new DateTime(2026, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), false, "Adcirca", 2000m, null, null },
+                    { 4, null, new DateTime(2022, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), null, "Non-Description", new DateTime(2026, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), false, "Betagan", 2000m, null, null },
+                    { 5, null, new DateTime(2022, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), null, "Non-Description", new DateTime(2026, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), false, "Blocadren", 2000m, null, null },
+                    { 6, null, new DateTime(2022, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), null, "Non-Description", new DateTime(2026, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), false, "Caverject", 2000m, null, null },
+                    { 7, null, new DateTime(2022, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), null, "Non-Description", new DateTime(2026, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), false, "Copaxone", 2000m, null, null },
+                    { 8, null, new DateTime(2022, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), null, "Non-Description", new DateTime(2026, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), false, "DesOwen", 2000m, null, null },
+                    { 9, null, new DateTime(2022, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), null, "Non-Description", new DateTime(2026, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), false, "DesOwen", 2000m, null, null },
+                    { 10, null, new DateTime(2022, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), null, "Non-Description", new DateTime(2026, 12, 28, 9, 53, 13, 811, DateTimeKind.Utc).AddTicks(2082), false, "Fludara", 2000m, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "1c292670-1a9b-4db4-bc74-0d184b5d09c6", "acd1d9db-7033-47e0-83b2-576f041f5612", "Doctor", "DOCTOR" },
+                    { "591c0417-6ec3-4fc0-8f8d-00414dd8c517", "e59609d6-2ef1-451f-9f95-9cd6ffce2820", "Admin", "ADMIN" },
+                    { "70e88fa4-2f21-4038-901e-17a480663b8d", "0370dad6-8a4d-422c-9d5c-723f70ba3f05", "Patient", "PATIENT" },
+                    { "aeddd5eb-b95e-441d-a383-226ece173aa1", "c4d46cbc-22d6-49bf-93d0-74797d06c083", "Nurse", "NURSE" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Service",
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "DeletedDate", "IsDelete", "ServiceName", "ServicePrice", "UpdatedBy", "UpdatedDate" },
+                values: new object[,]
+                {
+                    { 4, null, new DateTime(2022, 12, 28, 9, 53, 13, 812, DateTimeKind.Utc).AddTicks(9635), null, false, "Detect Alzheimer's Disease", 1000000m, null, null },
+                    { 2, null, new DateTime(2022, 12, 28, 9, 53, 13, 812, DateTimeKind.Utc).AddTicks(9635), null, false, "MRI scan", 300000m, null, null },
+                    { 3, null, new DateTime(2022, 12, 28, 9, 53, 13, 812, DateTimeKind.Utc).AddTicks(9635), null, false, "General examination", 500000m, null, null },
+                    { 1, null, new DateTime(2022, 12, 28, 9, 53, 13, 812, DateTimeKind.Utc).AddTicks(9635), null, false, "Normal", 250000m, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "AccessFailedCount", "Address", "BirthDay", "ConcurrencyStamp", "CreatedBy", "CreatedDate", "DeletedDate", "Email", "EmailConfirmed", "FirstName", "Gender", "Image", "IsDelete", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedBy", "UpdatedDate", "UserName" },
+                values: new object[,]
+                {
+                    { "3cd81fdb-6b1b-4b4d-8c4e-3d320dd238fd", 0, "Admin", new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "845c95cd-f102-4313-8f15-11dab60a90e9", null, new DateTime(2022, 12, 28, 9, 53, 13, 814, DateTimeKind.Utc).AddTicks(5096), null, "admin@clinc.com", true, "admin", 1, "https://media.istockphoto.com/id/476085198/photo/businessman-silhouette-as-avatar-or-default-profile-picture.jpg?s=612x612&w=0&k=20&c=GVYAgYvyLb082gop8rg0XC_wNsu0qupfSLtO7q9wu38=", false, "admin", false, null, "ADMIN@CLINIC.COM", "ADMIN", "AQAAAAEAACcQAAAAEFLqFehzyV1X7fLgbzf8kAWg76K3AbYTUSCt7bw576CfmXqQ/6z33nGjI6hdWb8a8w==", "0909090090", true, "bff90d95-536c-4e98-bbfd-89c3b8808ffa", false, null, null, "admin" },
+                    { "6af402af-997c-4a60-8a94-79497cd69f7f", 0, "TP HCM", new DateTime(2001, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ae931439-8a3f-41a9-a005-13abe95d8040", null, new DateTime(2022, 12, 28, 9, 53, 13, 814, DateTimeKind.Utc).AddTicks(5096), null, "v.thanhphong1712@gmail.com", true, "Thanh Phong", 1, "https://media.istockphoto.com/id/476085198/photo/businessman-silhouette-as-avatar-or-default-profile-picture.jpg?s=612x612&w=0&k=20&c=GVYAgYvyLb082gop8rg0XC_wNsu0qupfSLtO7q9wu38=", false, "Võ", false, null, "V.THANHPHONG1712@GMAIL.COM", "PHONGVT1712", "AQAAAAEAACcQAAAAEG4hmqOrITN1aJfWA1LP2p5Q6z5ZjTkITTaPwS6hxkw2WyNj6DWRVhxc5+nFtChW8g==", "0769339456", true, "c1545599-d64b-43b4-949e-ccd3a6b6c20d", false, null, null, "phongvt1712" },
+                    { "1454e4a0-ab63-477c-b5d9-b77b35fbd12e", 0, "Cần Thơ", new DateTime(2001, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "e23f7935-e31b-41a5-95ad-b1f483a65c3e", null, new DateTime(2022, 12, 28, 9, 53, 13, 814, DateTimeKind.Utc).AddTicks(5096), null, "hungle@gmail.com", true, "Quốc Hùng", 0, "https://media.istockphoto.com/id/476085198/photo/businessman-silhouette-as-avatar-or-default-profile-picture.jpg?s=612x612&w=0&k=20&c=GVYAgYvyLb082gop8rg0XC_wNsu0qupfSLtO7q9wu38=", false, "Lê", false, null, "HUNGLE@GMAIL.COM", "HUNGLE", "AQAAAAEAACcQAAAAEFkIsP5iJH9PrrvtaYmyPnMh5NUP+A0CssFGz/Jl3kP9rEpZr7Mxs+0nVksdO6iZiQ==", "0123456789", true, "09b494d2-7902-4066-b8f6-e15659480b52", false, null, null, "hungle" },
+                    { "9cd9c1a2-6072-44f5-86ad-2cc268e38726", 0, "Bến Tre", new DateTime(2001, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "71a46715-7c09-47d0-b2ca-23ea80ea4b5f", null, new DateTime(2022, 12, 28, 9, 53, 13, 814, DateTimeKind.Utc).AddTicks(5096), null, "hauphan@gmail.com", true, "Công Hậu", 0, "https://media.istockphoto.com/id/476085198/photo/businessman-silhouette-as-avatar-or-default-profile-picture.jpg?s=612x612&w=0&k=20&c=GVYAgYvyLb082gop8rg0XC_wNsu0qupfSLtO7q9wu38=", false, "Phan", false, null, "HAUPHAN@GMAIL.COM", "HAUPHAN", "AQAAAAEAACcQAAAAENi+Wsc/on+LFow+56if34RcsbyyqOrv1a9J/D+ZfgimqF1ZaKpeLLT9HoGEc7bSgg==", "0808080080", true, "6dd06818-285a-4092-9105-12248aa19e88", false, null, null, "hauphan" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -543,9 +593,9 @@ namespace BusinessObject.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Doctor_QueueId",
-                table: "Doctor",
-                column: "QueueId");
+                name: "IX_AppointmentDetails_ServiceId",
+                table: "AppointmentDetails",
+                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Doctor_UserId",
@@ -568,11 +618,6 @@ namespace BusinessObject.Migrations
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Patient_QueueId",
-                table: "Patient",
-                column: "QueueId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Patient_UserId",
                 table: "Patient",
                 column: "UserId",
@@ -591,9 +636,19 @@ namespace BusinessObject.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrescriptionDetails_MedicineId",
-                table: "PrescriptionDetails",
+                name: "IX_prescriptionDetails_MedicineId",
+                table: "prescriptionDetails",
                 column: "MedicineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Queue_DoctorId",
+                table: "Queue",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Queue_PatientId",
+                table: "Queue",
+                column: "PatientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -612,11 +667,6 @@ namespace BusinessObject.Migrations
                 table: "Schedule",
                 column: "DoctorId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Service_AppointmentId",
-                table: "Service",
-                column: "AppointmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Test_AppointmentId",
@@ -655,19 +705,22 @@ namespace BusinessObject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AppointmentDetails");
+
+            migrationBuilder.DropTable(
                 name: "Nurse");
 
             migrationBuilder.DropTable(
-                name: "PrescriptionDetails");
+                name: "prescriptionDetails");
+
+            migrationBuilder.DropTable(
+                name: "Queue");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
 
             migrationBuilder.DropTable(
                 name: "ScheduleDetails");
-
-            migrationBuilder.DropTable(
-                name: "Service");
 
             migrationBuilder.DropTable(
                 name: "Test");
@@ -683,6 +736,9 @@ namespace BusinessObject.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Service");
 
             migrationBuilder.DropTable(
                 name: "Medicine");
@@ -707,9 +763,6 @@ namespace BusinessObject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Patient");
-
-            migrationBuilder.DropTable(
-                name: "Queue");
 
             migrationBuilder.DropTable(
                 name: "Users");

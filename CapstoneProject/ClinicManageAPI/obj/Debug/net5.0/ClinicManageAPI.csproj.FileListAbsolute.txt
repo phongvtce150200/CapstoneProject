@@ -33,7 +33,6 @@ G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Microsoft.IdentityModel
 G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Microsoft.OpenApi.dll
-G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Newtonsoft.Json.dll
 G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -65,3 +64,10 @@ G:\DoAn\CapstoneProject\ClinicManageAPI\obj\Debug\net5.0\refint\ClinicManageAPI.
 G:\DoAn\CapstoneProject\ClinicManageAPI\obj\Debug\net5.0\ClinicManageAPI.pdb
 G:\DoAn\CapstoneProject\ClinicManageAPI\obj\Debug\net5.0\ClinicManageAPI.genruntimeconfig.cache
 G:\DoAn\CapstoneProject\ClinicManageAPI\obj\Debug\net5.0\ref\ClinicManageAPI.dll
+G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\AutoMapper.dll
+G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
