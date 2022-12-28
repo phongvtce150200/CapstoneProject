@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{520A1C3E-B4ED-46A4-A258-220DCBDFF5BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicManageAPI", "ClinicManageAPI\ClinicManageAPI.csproj", "{4876E57D-6559-4645-9553-E931E10CF2C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{520A1C3E-B4ED-46A4-A258-220DCBDFF5BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{520A1C3E-B4ED-46A4-A258-220DCBDFF5BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{520A1C3E-B4ED-46A4-A258-220DCBDFF5BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{520A1C3E-B4ED-46A4-A258-220DCBDFF5BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4876E57D-6559-4645-9553-E931E10CF2C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4876E57D-6559-4645-9553-E931E10CF2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4876E57D-6559-4645-9553-E931E10CF2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4876E57D-6559-4645-9553-E931E10CF2C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8BDC2166-86E7-470F-835F-B204EAA984D9}
+	EndGlobalSection
+EndGlobal
