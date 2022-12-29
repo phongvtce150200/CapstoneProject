@@ -33,6 +33,12 @@ namespace ClinicManageAPI.Controllers
             _mapper = mapper;
             _context = context;
         }
+
+        /// <summary>
+        /// Login
+        /// </summary>
+        /// <param name="loginDTO"></param>
+        /// <returns>Token and Infomation of User</returns>
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
@@ -79,6 +85,12 @@ namespace ClinicManageAPI.Controllers
                 Role = role
             });
         }
+
+        /// <summary>
+        /// Register
+        /// </summary>
+        /// <param name="registerDTO"></param>
+        /// <returns>Success if create succesfully, otherwise</returns>
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterDTO registerDTO)
         {
