@@ -4,6 +4,7 @@ using ClinicManageAPI.MapperConfig;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -116,7 +117,6 @@ namespace ClinicManageAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ClinicManageAPI v1"));
             }
-
             app.UseHttpsRedirection();
 
             //app.UseCors(MyAllowSpecificOrigins);
@@ -126,10 +126,13 @@ namespace ClinicManageAPI
 
             app.UseAuthorization();
 
+            app.UseMyMiddleware();
+         
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            
         }
     }
 }
