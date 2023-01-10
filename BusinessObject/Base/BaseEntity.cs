@@ -10,7 +10,7 @@ namespace BusinessObject.Base
         public string? CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }
         public bool IsDelete { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; } = DateTime.Now;  
         public DateTime? UpdatedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
     }

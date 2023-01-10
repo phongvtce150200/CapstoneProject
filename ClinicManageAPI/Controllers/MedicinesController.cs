@@ -6,6 +6,8 @@ using BusinessObject;
 using BusinessObject.Entity;
 using AutoMapper;
 using ClinicManageAPI.DTO;
+using ClinicManageAPI.ServiceAPI.Interface;
+using ClinicManageAPI.ServiceAPI.Pagination;
 
 namespace ClinicManageAPI.Controllers
 {
@@ -27,12 +29,13 @@ namespace ClinicManageAPI.Controllers
         /// Get all Medicine
         /// </summary>
         /// <returns>List Medicine</returns>
-        [HttpGet]
-        public async Task<IActionResult> Getmedicines()
-        {
+        [HttpPost("GetAllMedicines")]
+        public async Task<IActionResult> GetAllMedicines([FromQuery] Pagination resultPage)
+       {
             var medicine = await _context.medicines.ToListAsync();
             var listMedicine = _mapper.ProjectTo<MedicineDTO>(medicine.AsQueryable());
-            return Ok(listMedicine);
+            var result = new PageList<MedicineDTO>(listMedicine.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
+            return Ok(result);
         }
 
         // GET: api/Medicines/5

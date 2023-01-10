@@ -30,6 +30,7 @@ namespace BusinessObject
         public DbSet<Service> services { get; set; }
         public DbSet<Test> tests { get; set; }
         public DbSet<Qualification> qualifications { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessObject;
 using ClinicManageAPI.DTO;
+using ClinicManageAPI.ServiceAPI.Pagination;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -20,22 +21,24 @@ namespace ClinicManageAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("GetAllDoctor")]
-        public async Task<IActionResult> GetAllNurse()
+        [HttpGet("GetAllNurse")]
+        public async Task<IActionResult> GetAllNurse([FromQuery] Pagination resultPage)
         {
             var nurse = await _context.nurses.Include(x => x.User).ToListAsync();
             var listNurse = _mapper.ProjectTo<NurseInfoDTO>(nurse.AsQueryable());
-            return Ok(listNurse);
+            var result = new PageList<NurseInfoDTO>(listNurse.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
+            return Ok(result);
         }
 
-        [HttpGet("GetDoctorByName")]
-        public async Task<IActionResult> GetNurseByName(string name)
+        [HttpGet("GetNurseByName")]
+        public async Task<IActionResult> GetNurseByName(string name, [FromQuery] Pagination resultPage)
         {
             var nurse = await _context.nurses.Include(x => x.User)
                 .Where(y => y.User.FirstName.Contains(name) || y.User.LastName.Contains(name))
                 .ToListAsync();
             var listNurse = _mapper.ProjectTo<NurseInfoDTO>(nurse.AsQueryable());
-            return Ok(listNurse);
+            var result = new PageList<NurseInfoDTO>(listNurse.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
+            return Ok(result);
         }
     }
 }

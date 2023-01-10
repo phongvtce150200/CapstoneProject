@@ -27,6 +27,7 @@ namespace BusinessObject.Entity
     }
     public enum Gender
     {
+        Undefine = 2,
         Male = 1,
         Female = 0
     }

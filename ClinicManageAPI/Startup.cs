@@ -1,10 +1,10 @@
 using BusinessObject;
 using BusinessObject.Entity;
+using ClinicManageAPI.Hubs;
 using ClinicManageAPI.MapperConfig;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,13 +12,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog.Context;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text;
 
 namespace ClinicManageAPI
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,6 +34,17 @@ namespace ClinicManageAPI
         {
             //Add DbContext
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.AllowAnyHeader();
+                                      policy.AllowAnyMethod();
+                                      policy.AllowAnyOrigin();
+                                  });
+            });
 
             //Add Automapper
             services.AddMapperConfig();
@@ -111,6 +125,7 @@ namespace ClinicManageAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(MyAllowSpecificOrigins);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -119,20 +134,33 @@ namespace ClinicManageAPI
             }
             app.UseHttpsRedirection();
 
-            //app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthentication();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseMyMiddleware();
-         
+            app.Use(async (httpContext, next) =>
+            {
+                var identity = httpContext.User.Identity as ClaimsIdentity;
+
+                var userName = httpContext.User.Identity.IsAuthenticated ? httpContext.User.Identity.Name : "anonymous";
+                LogContext.PushProperty("UserName", userName);
+                var userId = httpContext.User.Identity.IsAuthenticated ? identity.FindFirst("Id").Value : null;
+                LogContext.PushProperty("UserId", userId);
+
+
+                await next.Invoke();
+            });
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/SignalRServer");
             });
-            
+
+
         }
     }
 }
