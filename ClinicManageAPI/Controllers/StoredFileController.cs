@@ -71,6 +71,22 @@ namespace ClinicManageAPI.Controllers
 
             return megaUrl.ToString();
         }
+        public async Task<Stream> DownloadAsync(string url)
+        {
+            //url = url.Replace(' ', '+');
+
+            var megaClient = new MegaApiClient();
+            await megaClient.LoginAnonymousAsync();
+
+            var fileLink = new Uri(url);
+            //var node = await megaClient.GetNodeFromLinkAsync(fileLink);
+
+            var stream = await megaClient.DownloadAsync(fileLink);
+
+            await megaClient.LogoutAsync();
+
+            return stream;
+        }
 
         public async Task DeleteAsync(string url)
         {
