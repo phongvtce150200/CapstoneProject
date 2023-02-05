@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -48,6 +49,27 @@ namespace ClinicManageAPI.Controllers
             }
 
             return listFile;
+        }
+        public async Task<string> UploadAsync(IFormFile file, string folder)
+        {
+            using var memoryStream = new MemoryStream();
+            var megaClient = new MegaApiClient();
+
+            await file.CopyToAsync(memoryStream);
+            await megaClient.LoginAsync(_configuration["MegaAPI:Email"], _configuration["MegaAPI:Password"]);
+            IEnumerable<INode>? nodes = await megaClient.GetNodesAsync();
+            var root = nodes.First(x => x.Type == NodeType.Directory && x.Name == folder);
+
+            if (root == null)
+            {
+                throw new Exception("Mega folder not found.");
+            }
+
+            var myFile = await megaClient.UploadAsync(memoryStream, file.FileName, root);
+            var megaUrl = await megaClient.GetDownloadLinkAsync(myFile);
+            await megaClient.LogoutAsync();
+
+            return megaUrl.ToString();
         }
 
         public async Task DeleteAsync(string url)
