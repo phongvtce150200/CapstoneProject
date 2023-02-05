@@ -48,7 +48,8 @@ namespace ClinicManageAPI.Controllers
         }
 
 
-        //Tối ưu code,viet lai phan nay
+        //Tối ưu code,viet lai phan nay, 
+        //if useremail has not confirm, send email method from authentication controller
 
   /*      [HttpPut]
         public IActionResult EditUserProfile(EditUserDTO EdituserDTO)
@@ -76,6 +77,7 @@ namespace ClinicManageAPI.Controllers
             else return BadRequest("PhoneNumber Can't Be Null");
             _context.Update(user);
             _context.SaveChanges();
+            khi save thi email da duoc luu vao account, sau do call method confirm mail o authentication
             return Ok(user);
         }*/
 

@@ -14,11 +14,15 @@ using AutoMapper;
 using BusinessObject;
 using Newtonsoft.Json.Linq;
 using System.Data;
+using ClinicManageAPI.Respone;
+using ClinicManageAPI.Helper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicManageAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthenticationController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
@@ -132,33 +136,54 @@ namespace ClinicManageAPI.Controllers
                 patient.UserId = userId;
                 _context.patients.Add(patient);
                 _context.SaveChanges();
+
+                string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var callbackUrl = Request.Scheme + "://" + Request.Host + Url.Action("ConfirmMail", "Authentication",
+                    new { usermail = user.Email, code = code });
+                string htmlBody = "<html><body>Please confirm your account by clicking <a href='" + callbackUrl + "'>Click this link</a></body></html>";
+                SendMail.SendEmail(user.Email, "Confirm Your Email Account", htmlBody, "");
+
                 return Ok("Create new account sucessfully");
             }
 
             return BadRequest(result);
         }
-        public class LoginResponse
+
+        [HttpGet("ConfirmMail")]
+        public async Task<IActionResult> ConfirmMail(string usermail, string code)
         {
-            public string Token { get; set; }
-            public string Id { get; set; }
-            public string FullName { get; set; }
-            public string Role { get; set; }
+            var user = await _userManager.FindByEmailAsync(usermail);
+            if (user != null)
+            {
+
+                var result = await _userManager.ConfirmEmailAsync(user, code);
+                if (result.Succeeded) 
+                return Ok("Email has been Confirm");
+
+            }
+
+            return BadRequest("Something went wrong");
         }
-        public class LoginDoctorResponse
+        [HttpGet("RequestConfirmEmail")]
+        public async Task<IActionResult> RequestConfirmEmail(string email)
         {
-            public string Token { get; set; }
-            public string Id { get; set; }
-            public string FullName { get; set; }
-            public string Role { get; set; }
-            public int DoctorId { get; set; }
-        }
-        public class LoginNurseResponse
-        {
-            public string Token { get; set; }
-            public string Id { get; set; }
-            public string FullName { get; set; }
-            public string Role { get; set; }
-            public int NurseId { get; set; }
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return BadRequest("Your account has not been exits");
+            }
+
+            string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var callbackUrl = Request.Scheme + "://" + Request.Host + Url.Action("ConfirmMail", "Authentication",
+                new { usermail = user.Email, code = code });
+            string htmlBody = "<html><body>Please confirm your account by clicking <a href='" + callbackUrl + "'>Click this link</a></body></html>";
+            SendMail.SendEmail(user.Email, "Confirm Your Email Account", htmlBody, ""); 
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            if (result.Succeeded)
+            {
+                return Ok("Email has been sent");
+            }
+            return BadRequest();
         }
     }
 }

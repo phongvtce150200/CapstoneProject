@@ -159,3 +159,5 @@ G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Serilog.Sinks.Debug.dll
 G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Serilog.Sinks.File.dll
 G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Serilog.Sinks.MSSqlServer.dll
 G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\Serilog.Sinks.PeriodicBatching.dll
+G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\libman.json
+G:\DoAn\CapstoneProject\ClinicManageAPI\bin\Debug\net5.0\MegaApiClient.dll

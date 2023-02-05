@@ -88,6 +88,23 @@
           }
         }
       },
+      "MegaApiClient/1.10.3": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "10.0.2",
+          "System.Net.Http": "4.3.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/MegaApiClient.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/MegaApiClient.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/5.0.17": {
         "type": "package",
         "dependencies": {
@@ -3726,6 +3743,31 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "MegaApiClient/1.10.3": {
+      "sha512": "df1uzofRVzNxP4WpE2WWWrgpdN+9RmOqZqtNHhjcmRTe0+CNAzAN7fjxr3fVBMTLRQ2iNigPAjT39YIqstcCJw==",
+      "type": "package",
+      "path": "megaapiclient/1.10.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/MegaApiClient.dll",
+        "lib/net40/MegaApiClient.xml",
+        "lib/net45/MegaApiClient.dll",
+        "lib/net45/MegaApiClient.xml",
+        "lib/net46/MegaApiClient.dll",
+        "lib/net46/MegaApiClient.xml",
+        "lib/net47/MegaApiClient.dll",
+        "lib/net47/MegaApiClient.xml",
+        "lib/net471/MegaApiClient.dll",
+        "lib/net471/MegaApiClient.xml",
+        "lib/netstandard1.3/MegaApiClient.dll",
+        "lib/netstandard1.3/MegaApiClient.xml",
+        "lib/netstandard2.0/MegaApiClient.dll",
+        "lib/netstandard2.0/MegaApiClient.xml",
+        "megaapiclient.1.10.3.nupkg.sha512",
+        "megaapiclient.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/5.0.17": {
@@ -10607,6 +10649,7 @@
       "AutoMapper >= 12.0.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.0",
       "BusinessObject >= 1.0.0",
+      "MegaApiClient >= 1.10.3",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.17",
       "Microsoft.EntityFrameworkCore >= 5.0.17",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.17",
@@ -10669,6 +10712,10 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[12.0.0, )"
+          },
+          "MegaApiClient": {
+            "target": "Package",
+            "version": "[1.10.3, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",

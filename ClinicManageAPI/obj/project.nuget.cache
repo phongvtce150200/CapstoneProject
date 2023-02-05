@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VgcvuhS7pI59k9mlWGbakRBK2opuRFrzZdh4An+e3/jgtH/oYBR//osZj0wyVADoaI3L0THxAorL0NyIOriNvg==",
+  "dgSpecHash": "4gImjofwPT0AfNtuxdpTgT5Mt+OeZ4qM05hlWuhbYkb5ne+mKRV4FsFLDoEZrcQpZspIuKF/bmoIZAYCZzLQTA==",
   "success": true,
   "projectFilePath": "G:\\DoAn\\CapstoneProject\\ClinicManageAPI\\ClinicManageAPI.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\vthan\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\vthan\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",
     "C:\\Users\\vthan\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\vthan\\.nuget\\packages\\megaapiclient\\1.10.3\\megaapiclient.1.10.3.nupkg.sha512",
     "C:\\Users\\vthan\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.17\\microsoft.aspnetcore.authentication.jwtbearer.5.0.17.nupkg.sha512",
     "C:\\Users\\vthan\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.17\\microsoft.aspnetcore.cryptography.internal.5.0.17.nupkg.sha512",
     "C:\\Users\\vthan\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.17\\microsoft.aspnetcore.cryptography.keyderivation.5.0.17.nupkg.sha512",

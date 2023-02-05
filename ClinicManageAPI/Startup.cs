@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog.Context;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 
@@ -40,9 +41,9 @@ namespace ClinicManageAPI
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   policy =>
                                   {
+                                      policy.AllowAnyOrigin();
                                       policy.AllowAnyHeader();
                                       policy.AllowAnyMethod();
-                                      policy.AllowAnyOrigin();
                                   });
             });
 
@@ -64,6 +65,8 @@ namespace ClinicManageAPI
             }).AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+            services.AddHttpClient();
+            services.AddSignalR();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -144,7 +147,7 @@ namespace ClinicManageAPI
             {
                 var identity = httpContext.User.Identity as ClaimsIdentity;
 
-                var userName = httpContext.User.Identity.IsAuthenticated ? httpContext.User.Identity.Name : "anonymous";
+                var userName = httpContext.User.Identity.IsAuthenticated ? httpContext.User.Identity.Name : "Anonymous";
                 LogContext.PushProperty("UserName", userName);
                 var userId = httpContext.User.Identity.IsAuthenticated ? identity.FindFirst("Id").Value : null;
                 LogContext.PushProperty("UserId", userId);
@@ -152,7 +155,6 @@ namespace ClinicManageAPI
 
                 await next.Invoke();
             });
-
 
             app.UseEndpoints(endpoints =>
             {
