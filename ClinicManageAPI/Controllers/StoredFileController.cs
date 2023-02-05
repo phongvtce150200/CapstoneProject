@@ -4,6 +4,7 @@ using ClinicManageAPI.Helper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,6 +48,24 @@ namespace ClinicManageAPI.Controllers
             }
 
             return listFile;
+        }
+
+        public async Task DeleteAsync(string url)
+        {
+            var megaClient = new MegaApiClient();
+
+            await megaClient.LoginAsync(_configuration["MegaAPI:Email"], _configuration["MegaAPI:Password"]);
+
+            var fileLink = new Uri(url);
+            var node = await megaClient.GetNodeFromLinkAsync(fileLink);
+
+            IEnumerable<INode>? nodes = await megaClient.GetNodesAsync();
+            var allFiles = nodes.Where(n => n.Type == NodeType.File).ToList();
+            var myFile = allFiles.FirstOrDefault(f => f.Name == node.Name);
+
+            await megaClient.DeleteAsync(myFile, false);
+
+            await megaClient.LogoutAsync();
         }
     }
 }
