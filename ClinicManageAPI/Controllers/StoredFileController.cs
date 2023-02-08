@@ -72,7 +72,7 @@ namespace ClinicManageAPI.Controllers
 
             return megaUrl.ToString();
         }
-        [HttpPost]
+        [HttpPost("Download")]
         public async Task<Stream> DownloadAsync(string url)
         {
             //url = url.Replace(' ', '+');
