@@ -25,12 +25,11 @@ namespace BusinessObject
         public DbSet<Prescription> prescriptions { get; set; }
         public DbSet<PrescriptionDetails> prescriptionDetails { get; set; }
         public DbSet<Queue> queues { get; set; }
-        public DbSet<Schedule> schedules { get; set; }
-        public DbSet<ScheduleDetails> ScheduleDetails { get; set; }
         public DbSet<Service> services { get; set; }
         public DbSet<Test> tests { get; set; }
         public DbSet<Qualification> qualifications { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<ReservedSchedule> reservedSchedules { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -71,8 +70,6 @@ namespace BusinessObject
             builder.ApplyConfiguration(new MedicineConfig());
             builder.ApplyConfiguration(new PrescriptionConfig());
             builder.ApplyConfiguration(new QueueConfig());
-            builder.ApplyConfiguration(new ScheduleConfig());
-            builder.ApplyConfiguration(new ScheduleDetailsConfig());
             builder.ApplyConfiguration(new ServiceConfig());
             builder.ApplyConfiguration(new TestConfig());
             builder.ApplyConfiguration(new DoctorConfig());
@@ -80,7 +77,7 @@ namespace BusinessObject
             builder.ApplyConfiguration(new PatientConfig());
             builder.ApplyConfiguration(new PrescriptionDetailsConfig());
             builder.ApplyConfiguration(new QualificationConfig());
-
+            builder.ApplyConfiguration(new ReservedScheduleConfig());
             //Adding Seeder Data
             builder.Entity<Medicine>().SeedData();
             builder.Entity<Service>().SeedData();
