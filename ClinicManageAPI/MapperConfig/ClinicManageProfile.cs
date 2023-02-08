@@ -20,6 +20,7 @@ namespace ClinicManageAPI.MapperConfig
             CreateMap<Queue, QueueDTO>().ReverseMap();
             CreateMap<Queue, GetQueueDTO>().ReverseMap();
             CreateMap<Patient, PatientDTO>().ReverseMap();
+            CreateMap<ReservedSchedule, ReservedScheduleDTO>().ReverseMap();  
         }
     }
 }

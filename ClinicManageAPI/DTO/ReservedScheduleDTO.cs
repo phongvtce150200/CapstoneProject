@@ -2,7 +2,7 @@
 {
     public class ReservedScheduleDTO
     {
-        public int ScheduleId { get; set; }
+        public int Id { get; set; }
         public int DocId { get; set; }
         public int PatientId { get; set; }
         public string Title { get; set; }

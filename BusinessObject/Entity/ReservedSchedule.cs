@@ -7,8 +7,6 @@ namespace BusinessObject.Entity
 {
     public class ReservedSchedule : BaseEntity
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ScheduleId { get; set; }
         [Required]
         public int SlotId { get; set; }
         [Required]
