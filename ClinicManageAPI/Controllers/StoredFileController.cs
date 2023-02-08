@@ -51,7 +51,7 @@ namespace ClinicManageAPI.Controllers
             return listFile;
         }
         [HttpPost]
-        public async Task<string> UpdateAsync(IFormFile file, string folder)
+        public async Task<string> UploadAsync(IFormFile file, string folder)
         {
             using var memoryStream = new MemoryStream();
             var megaClient = new MegaApiClient();
@@ -72,7 +72,7 @@ namespace ClinicManageAPI.Controllers
 
             return megaUrl.ToString();
         }
-        [HttpPost("Download")]
+        [HttpPost("DownloadFile")]
         public async Task<Stream> DownloadAsync(string url)
         {
             //url = url.Replace(' ', '+');
