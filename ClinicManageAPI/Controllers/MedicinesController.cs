@@ -8,6 +8,8 @@ using AutoMapper;
 using ClinicManageAPI.DTO;
 using ClinicManageAPI.ServiceAPI.Interface;
 using ClinicManageAPI.ServiceAPI.Pagination;
+using ClinicManageAPI.Extentions;
+using ClinicManageAPI.DTO.MedicineDtos;
 
 namespace ClinicManageAPI.Controllers
 {
@@ -31,7 +33,7 @@ namespace ClinicManageAPI.Controllers
         /// <returns>List Medicine</returns>
         [HttpGet("GetAllMedicines")]
         public async Task<IActionResult> GetAllMedicines([FromQuery] Pagination resultPage)
-       {
+        {
             var medicine = await _context.medicines.ToListAsync();
             var listMedicine = _mapper.ProjectTo<MedicineDTO>(medicine.AsQueryable());
             var result = new PageList<MedicineDTO>(listMedicine.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
@@ -53,7 +55,7 @@ namespace ClinicManageAPI.Controllers
             {
                 return NotFound();
             }
-            var medicine = _mapper.Map<MedicineDTO>(find);
+            var medicine = _mapper.Map<CreateMedicineDTO>(find);
 
             return Ok(medicine);
         }
@@ -66,15 +68,16 @@ namespace ClinicManageAPI.Controllers
         /// <param name="medicineDTO"></param>
         /// <returns>return Ok if edit successfuly, otherwise</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMedicine(int id, MedicineDTO medicineDTO)
+        public async Task<IActionResult> PutMedicine(int id, EditMedicineDTO medicineDTO)
         {
             if (id != medicineDTO.Id)
             {
                 return BadRequest();
             }
             var find = _context.medicines.Find(id);
-            var medicine = _mapper.Map<MedicineDTO, Medicine>(medicineDTO, find);
-            _context.Entry(medicine).State = EntityState.Modified;
+            var user = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+            var medicine = _mapper.Map<EditMedicineDTO, Medicine>(medicineDTO, find);
+            _context.Entry(medicine.UpdateMedicine(user)).State = EntityState.Modified;
 
             try
             {
@@ -92,7 +95,7 @@ namespace ClinicManageAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(medicine);
         }
 
         // POST: api/Medicines
@@ -102,10 +105,11 @@ namespace ClinicManageAPI.Controllers
         /// <param name="medicineDTO"></param>
         /// <returns>return Ok if create successfuly, otherwise</returns>
         [HttpPost]
-        public async Task<ActionResult<Medicine>> PostMedicine(MedicineDTO medicineDTO)
+        public async Task<ActionResult<Medicine>> PostMedicine(CreateMedicineDTO medicineDTO)
         {
             var medicine = _mapper.Map<Medicine>(medicineDTO);
-            _context.medicines.Add(medicine);
+            var user = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+            await _context.medicines.AddAsync(medicine.PostMedicine(user));
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetMedicine", new { id = medicine.Id }, medicine);
@@ -117,7 +121,7 @@ namespace ClinicManageAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>return NoContent if delete succesfully, otherwise</returns>
-        [HttpDelete("{id}")]
+        [HttpPut("DeleteMedicine/{id}")]
         public async Task<IActionResult> DeleteMedicine(int id)
         {
             var medicine = await _context.medicines.FindAsync(id);
@@ -125,11 +129,24 @@ namespace ClinicManageAPI.Controllers
             {
                 return NotFound();
             }
-
-            _context.medicines.Remove(medicine);
+            var user = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+            _context.medicines.Update(medicine.DeleteMedicine(user));
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(medicine);
+        }
+        [HttpPut("RestoreMedicne")]
+        public async Task<IActionResult> RestoreMedicine(int id)
+        {
+            var medicine = await _context.medicines.FindAsync(id);
+            if(medicine == null)
+            {
+                return NotFound();
+            }
+            var user = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+            _context.medicines.Update(medicine.RestoreDeleteMedicine(user));
+            await _context.SaveChangesAsync();
+            return Ok(medicine);
         }
 
         private bool MedicineExists(int id)
