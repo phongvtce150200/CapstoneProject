@@ -1,6 +1,8 @@
-﻿namespace ClinicManageAPI.DTO
+﻿using ClinicManageAPI.DTO.UserDtos;
+
+namespace ClinicManageAPI.DTO.NurseDtos
 {
-    public class DoctorInfoDTO
+    public class NurseInfoDTO
     {
         public string Id { get; set; }
         public int Experience { get; set; }

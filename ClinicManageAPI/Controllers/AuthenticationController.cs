@@ -8,7 +8,6 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System;
-using ClinicManageAPI.DTO;
 using System.Linq;
 using AutoMapper;
 using BusinessObject;
@@ -17,6 +16,7 @@ using System.Data;
 using ClinicManageAPI.Respone;
 using ClinicManageAPI.Helper;
 using Microsoft.AspNetCore.Authorization;
+using ClinicManageAPI.DTO.AuthenticationDtos;
 
 namespace ClinicManageAPI.Controllers
 {

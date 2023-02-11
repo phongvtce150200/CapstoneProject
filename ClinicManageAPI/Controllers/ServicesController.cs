@@ -6,7 +6,8 @@ using BusinessObject;
 using BusinessObject.Entity;
 using AutoMapper;
 using ClinicManageAPI.DTO;
-using ClinicManageAPI.ServiceAPI.Pagination;
+using ClinicManageAPI.ServiceAPI.Paginations;
+using ClinicManageAPI.DTO.ServiceDtos;
 
 namespace ClinicManageAPI.Controllers
 {

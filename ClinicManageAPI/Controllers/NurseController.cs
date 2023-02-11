@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using BusinessObject;
 using ClinicManageAPI.DTO;
-using ClinicManageAPI.ServiceAPI.Pagination;
+using ClinicManageAPI.DTO.NurseDtos;
+using ClinicManageAPI.ServiceAPI.Paginations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;

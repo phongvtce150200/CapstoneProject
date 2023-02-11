@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 
-namespace ClinicManageAPI.ServiceAPI.Pagination
+namespace ClinicManageAPI.ServiceAPI.Paginations
 {
     public class PageList<T> : IPagination
     {

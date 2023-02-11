@@ -1,4 +1,4 @@
-﻿namespace ClinicManageAPI.DTO
+﻿namespace ClinicManageAPI.DTO.ScheduleDtos
 {
     public class ReservedScheduleDTO
     {
