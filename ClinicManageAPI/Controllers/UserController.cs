@@ -4,7 +4,7 @@ using BusinessObject;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using ClinicManageAPI.DTO;
+using ClinicManageAPI.DTO.UserDtos;
 
 namespace ClinicManageAPI.Controllers
 {

@@ -7,7 +7,7 @@ using BusinessObject.Entity;
 using AutoMapper;
 using ClinicManageAPI.DTO;
 using ClinicManageAPI.ServiceAPI.Interface;
-using ClinicManageAPI.ServiceAPI.Pagination;
+using ClinicManageAPI.ServiceAPI.Paginations;
 using ClinicManageAPI.Extentions;
 using ClinicManageAPI.DTO.MedicineDtos;
 

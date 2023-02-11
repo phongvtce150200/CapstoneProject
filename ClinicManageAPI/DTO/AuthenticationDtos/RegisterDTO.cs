@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ClinicManageAPI.DTO
+namespace ClinicManageAPI.DTO.AuthenticationDtos
 {
     public class RegisterDTO
     {

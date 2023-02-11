@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BusinessObject;
 using BusinessObject.Entity;
-using ClinicManageAPI.DTO;
+using ClinicManageAPI.DTO.QueueDtos;
 using ClinicManageAPI.Hubs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;

@@ -2,7 +2,8 @@
 using BusinessObject;
 using BusinessObject.Entity;
 using ClinicManageAPI.DTO;
-using ClinicManageAPI.ServiceAPI.Pagination;
+using ClinicManageAPI.DTO.PatientDtos;
+using ClinicManageAPI.ServiceAPI.Paginations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
