@@ -14,6 +14,5 @@ namespace BusinessObject.Entity
         public ICollection<Queue> queues { get; set; }
         public ICollection<Appointment> appointments { get; set; }
         public ICollection<Qualification> qualifications { get; set; }
-        public Schedule Schedule { get; set; }
     }
 }

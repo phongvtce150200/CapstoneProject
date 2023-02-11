@@ -29,7 +29,7 @@ namespace ClinicManageAPI.Controllers
         /// Get all Medicine
         /// </summary>
         /// <returns>List Medicine</returns>
-        [HttpPost("GetAllMedicines")]
+        [HttpGet("GetAllMedicines")]
         public async Task<IActionResult> GetAllMedicines([FromQuery] Pagination resultPage)
        {
             var medicine = await _context.medicines.ToListAsync();

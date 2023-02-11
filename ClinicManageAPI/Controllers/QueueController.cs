@@ -29,12 +29,12 @@ namespace ClinicManageAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetQueue(int doctorId)
         {
-            var queue = _context.queues.Where(x => x.DoctorId == doctorId)
+            var queue = await _context.queues.Where(x => x.DoctorId == doctorId)
                 .Include(x => x.Patient).ThenInclude(y => y.User)
                 .Include(xx => xx.Doctor).ThenInclude(yy => yy.User)
-                .OrderBy(y => y.Id).ToList();
+                .OrderBy(y => y.Id).ToListAsync();
             var listQueue = _mapper.ProjectTo<GetQueueDTO>(queue.AsQueryable());
-            await _signalRServer.Clients.All.SendAsync("LoadQueue", listQueue);
+            // await _signalRServer.Clients.All.SendAsync("LoadQueue", listQueue);
             return Ok(listQueue);
         }
 
@@ -44,7 +44,7 @@ namespace ClinicManageAPI.Controllers
             var queue = _mapper.Map<Queue>(queueDTO);
             _context.queues.Add(queue);
             await _context.SaveChangesAsync();
-            await _signalRServer.Clients.All.SendAsync("CreateQueue");
+            await _signalRServer.Clients.All.SendAsync("ReceiveQueue");
             return Ok();
         }
     }
