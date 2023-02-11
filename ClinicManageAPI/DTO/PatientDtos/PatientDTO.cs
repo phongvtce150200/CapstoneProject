@@ -1,4 +1,6 @@
-﻿namespace ClinicManageAPI.DTO
+﻿using ClinicManageAPI.DTO.UserDtos;
+
+namespace ClinicManageAPI.DTO.PatientDtos
 {
     public class PatientDTO
     {

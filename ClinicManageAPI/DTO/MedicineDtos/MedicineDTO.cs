@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ClinicManageAPI.DTO
+namespace ClinicManageAPI.DTO.MedicineDtos
 {
     public class MedicineDTO
     {
@@ -8,6 +8,7 @@ namespace ClinicManageAPI.DTO
         public string MedicineName { get; set; }
         public decimal Price { get; set; }
         public DateTime Expiration { get; set; }
+        public int Amount { get; set; }
         public string Description { get; set; }
         public string? CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }
@@ -17,3 +18,4 @@ namespace ClinicManageAPI.DTO
         public DateTime? DeletedDate { get; set; }
     }
 }
+

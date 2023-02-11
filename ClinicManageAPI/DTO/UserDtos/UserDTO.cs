@@ -1,4 +1,4 @@
-﻿namespace ClinicManageAPI.DTO
+﻿namespace ClinicManageAPI.DTO.UserDtos
 {
     public class UserDTO
     {

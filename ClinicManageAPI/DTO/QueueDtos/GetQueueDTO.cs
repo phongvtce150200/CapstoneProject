@@ -1,12 +1,12 @@
-﻿using System;
+﻿using ClinicManageAPI.DTO.PatientDtos;
 
-namespace ClinicManageAPI.DTO
+namespace ClinicManageAPI.DTO.QueueDtos
 {
-    public class QueueDTO
+    public class GetQueueDTO
     {
-        public int Id { get; set; }
         public int DoctorId { get; set; }
         public int PatientId { get; set; }
+        public PatientDTO Patient { get; set; }
         public int Pulse { get; set; }
         public int BloodPressure { get; set; }
         public int Tempurature { get; set; }
