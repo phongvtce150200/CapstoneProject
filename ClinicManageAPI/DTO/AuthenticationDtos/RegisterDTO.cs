@@ -13,5 +13,7 @@ namespace ClinicManageAPI.DTO.AuthenticationDtos
         public DateTime Birthday { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
+        //cmnd
+        //avt
     }
 }

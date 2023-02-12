@@ -6,7 +6,6 @@ using BusinessObject;
 using BusinessObject.Entity;
 using AutoMapper;
 using ClinicManageAPI.DTO;
-using ClinicManageAPI.ServiceAPI.Interface;
 using ClinicManageAPI.ServiceAPI.Paginations;
 using ClinicManageAPI.Extentions;
 using ClinicManageAPI.DTO.MedicineDtos;
@@ -108,10 +107,10 @@ namespace ClinicManageAPI.Controllers
         public async Task<ActionResult<Medicine>> PostMedicine(CreateMedicineDTO medicineDTO)
         {
             var medicine = _mapper.Map<Medicine>(medicineDTO);
-            var user = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
-            await _context.medicines.AddAsync(medicine.PostMedicine(user));
-            await _context.SaveChangesAsync();
-
+            var user = User.Identity.Name != null ? User.Identity.Name : "Anonymous";    
+                await _context.medicines.AddAsync(medicine.PostMedicine(user));
+                await _context.SaveChangesAsync();
+       
             return CreatedAtAction("GetMedicine", new { id = medicine.Id }, medicine);
         }
 
