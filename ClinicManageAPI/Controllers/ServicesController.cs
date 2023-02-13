@@ -8,6 +8,7 @@ using AutoMapper;
 using ClinicManageAPI.DTO;
 using ClinicManageAPI.ServiceAPI.Paginations;
 using ClinicManageAPI.DTO.ServiceDtos;
+using ClinicManageAPI.Extentions;
 
 namespace ClinicManageAPI.Controllers
 {
@@ -26,12 +27,12 @@ namespace ClinicManageAPI.Controllers
 
         // GET: api/Services
         [HttpGet]
-        public async Task<IActionResult> GetAllServices([FromQuery] Pagination resultPage)
+        public async Task<IActionResult> GetAllServices(/*[FromQuery] Pagination resultPage*/)
         {
             var service = await _context.services.ToListAsync();
             var listService = _mapper.ProjectTo<ServiceDTO>(service.AsQueryable());
-            var result = new PageList<ServiceDTO>(listService.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
-            return Ok(result);
+            //var result = new PageList<ServiceDTO>(listService.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
+            return Ok(listService);
         }
 
         // GET: api/Services/5
@@ -58,8 +59,9 @@ namespace ClinicManageAPI.Controllers
                 return BadRequest();
             }
             var find = _context.services.Find(id);
+            var user = User.Identity.Name;
             var service = _mapper.Map<ServiceDTO, Service>(serviceDTO,find);
-            _context.Entry(service).State = EntityState.Modified;
+            _context.Entry(service.UpdateService(user)).State = EntityState.Modified;
 
             try
             {
@@ -85,24 +87,26 @@ namespace ClinicManageAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> PostService(ServiceDTO serviceDTO)
         {
+            var user = User.Identity.Name;
             var service = _mapper.Map<Service>(serviceDTO);
-            _context.services.Add(service);
+            _context.services.Add(service.PostService(user));
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetService", new { id = service.Id }, service);
         }
 
         // DELETE: api/Services/5
-        [HttpDelete("{id}")]
+        [HttpPut("DeleteService/{id}")]
         public async Task<IActionResult> DeleteService(int id)
         {
+            var user = User.Identity.Name;
             var service = await _context.services.FindAsync(id);
             if (service == null)
             {
                 return NotFound();
             }
 
-            _context.services.Remove(service);
+            _context.services.Update(service.DeleteService(user));
             await _context.SaveChangesAsync();
 
             return NoContent();

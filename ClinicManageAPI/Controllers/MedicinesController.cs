@@ -31,12 +31,12 @@ namespace ClinicManageAPI.Controllers
         /// </summary>
         /// <returns>List Medicine</returns>
         [HttpGet("GetAllMedicines")]
-        public async Task<IActionResult> GetAllMedicines([FromQuery] Pagination resultPage)
+        public async Task<IActionResult> GetAllMedicines(/*[FromQuery] Pagination resultPage*/)
         {
             var medicine = await _context.medicines.ToListAsync();
             var listMedicine = _mapper.ProjectTo<MedicineDTO>(medicine.AsQueryable());
-            var result = new PageList<MedicineDTO>(listMedicine.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
-            return Ok(result);
+            //var result = new PageList<MedicineDTO>(listMedicine.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
+            return Ok(listMedicine);
         }
 
         // GET: api/Medicines/5
