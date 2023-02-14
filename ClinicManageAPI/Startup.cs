@@ -1,3 +1,4 @@
+using B2Net;
 using BusinessObject;
 using BusinessObject.Entity;
 using ClinicManageAPI.Hubs;
@@ -123,6 +124,7 @@ namespace ClinicManageAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"]))
                 };
             });
+            services.AddSingleton(x => new B2Client("8cf21d9ed82f", "00586eaff88f6773222396833126d29d802de72a28"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
