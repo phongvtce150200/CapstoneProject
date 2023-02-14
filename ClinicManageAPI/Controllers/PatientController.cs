@@ -45,5 +45,14 @@ namespace ClinicManageAPI.Controllers
             var result = new PageList<PatientDTO>(listPatient.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
             return Ok(result);
         }
+        [HttpGet("GetPatientById")]
+        public async Task<IActionResult> GetPatientById(int id, [FromQuery] Pagination resultPage)
+        {
+            var user = await _context.patients.ToListAsync();
+            if (user == null) return BadRequest("Don't have any User with role Patient");
+            var Patient = _mapper.ProjectTo<PatientDTO>(user.AsQueryable().Where(x => x.Id == id));
+            var result = new PageList<PatientDTO>(Patient.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
+            return Ok(result);
+        }
     }
 }
