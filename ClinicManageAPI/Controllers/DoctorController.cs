@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObject;
+using BusinessObject.Entity;
 using ClinicManageAPI.DTO;
 using ClinicManageAPI.ServiceAPI.Pagination;
 using Microsoft.AspNetCore.Mvc;
@@ -48,6 +49,28 @@ namespace ClinicManageAPI.Controllers
             var listDoctor = _mapper.ProjectTo<DoctorInfoDTO>(doctor.AsQueryable());
             var result = new PageList<DoctorInfoDTO>(listDoctor.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
             return Ok(result);
+        }
+
+        // HttpGet attribute defines the endpoint for the method
+        [HttpGet("GetDoctorById")]
+        public async Task<IActionResult> GetDoctorById(int doctorId)
+        {
+            // Find the doctor with the specified ID in the database
+            var doctor = await _context.doctors
+                .Include(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == doctorId);
+
+            // If doctor was not found, return NotFound result
+            if (doctor == null)
+            {
+                return NotFound();
+            }
+
+            // Map the found doctor to a DoctorInfoDTO using AutoMapper
+            var doctorDto = _mapper.Map<DoctorInfoDTO>(doctor);
+
+            // Return the mapped doctor
+            return Ok(doctorDto);
         }
     }
 }
