@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog.Context;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Claims;
@@ -48,6 +49,10 @@ namespace ClinicManageAPI
                                   });
             });
 
+            //Add lifetome for Token
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+            options.TokenLifespan = TimeSpan.FromHours(24));
+
             //Add Automapper
             services.AddMapperConfig();
 
@@ -63,6 +68,8 @@ namespace ClinicManageAPI
                 options.Password.RequireUppercase = false; //Khong bat buoc co uppercase
                 options.Password.RequiredLength = 6; //So ky tu toi da
                 options.Password.RequiredUniqueChars = 1; //So ky tu rieng biet
+                //Thiet lap Token
+
             }).AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
