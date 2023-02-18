@@ -22,12 +22,14 @@ namespace ClinicManageAPI.Extentions
         {
             medicine.IsDelete = true;
             medicine.DeletedDate = DateTime.UtcNow;
+            medicine.DeletedBy = user;
             return medicine;
         }
         public static Medicine RestoreDeleteMedicine(this Medicine medicine, string user)
         {
             medicine.IsDelete = false;
             medicine.DeletedDate = null;
+            medicine.DeletedBy = null;
             medicine.UpdatedDate = DateTime.UtcNow;
             return medicine;
         }

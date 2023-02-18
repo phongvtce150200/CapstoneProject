@@ -18,6 +18,7 @@ using ClinicManageAPI.Helper;
 using Microsoft.AspNetCore.Authorization;
 using ClinicManageAPI.DTO.AuthenticationDtos;
 using ClinicManageAPI.DTO;
+using ClinicManageAPI.Extentions;
 
 namespace ClinicManageAPI.Controllers
 {
@@ -132,6 +133,8 @@ namespace ClinicManageAPI.Controllers
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, Roles.Patient);
+                var createUser = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+                user.CreateUser(createUser);
                 string userId = user.Id;
                 var patient = new Patient();
                 patient.UserId = userId;
@@ -204,10 +207,9 @@ namespace ClinicManageAPI.Controllers
             }
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            //string htmlBody = "<html><body>Please confirm your account by clicking <a href='" + callbackUrl + "'>Click this link</a></body></html>";
-            int subToken1 = token.ToString().Length;
-            string subToken = token.ToString().Substring(token.LastIndexOf('+'), 6);
-            SendMail.SendEmail(user.Email, "Reset Password", "Your password reset code is: " + subToken, "");
+            var callbackUrl = "http://localhost:8080/resetpassword/" + token;
+            string htmlBody = "<html><body>Please confirm your account by clicking <a href='" + callbackUrl + "'>Click this link</a></body></html>";
+            SendMail.SendEmail(user.Email, "Reset Password", "Your password reset code is: " + htmlBody, "");
 
             return Ok(token);
         }

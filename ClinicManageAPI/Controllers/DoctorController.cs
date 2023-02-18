@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using BusinessObject;
 using BusinessObject.Entity;
-using ClinicManageAPI.DTO;
 using ClinicManageAPI.DTO.DoctorDtos;
-using ClinicManageAPI.ServiceAPI.Paginations;
+using ClinicManageAPI.Extentions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -17,10 +17,12 @@ namespace ClinicManageAPI.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        public DoctorController(IMapper mapper, ApplicationDbContext context)
+        private readonly UserManager<User> _userManager;
+        public DoctorController(IMapper mapper, ApplicationDbContext context, UserManager<User> userManager)
         {
             _mapper = mapper;
             _context = context;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -28,12 +30,12 @@ namespace ClinicManageAPI.Controllers
         /// </summary>
         /// <returns>Experience, Qualification and Infomation of Doctor</returns>
         [HttpGet("GetAllDoctor")]
-        public async Task<IActionResult> GetAllDoctor([FromQuery] Pagination resultPage)
+        public async Task<IActionResult> GetAllDoctor(/*[FromQuery] Pagination resultPage*/)
         {
             var doctor = await _context.doctors.Include(x => x.User).ToListAsync();
             var listDoctor = _mapper.ProjectTo<DoctorInfoDTO>(doctor.AsQueryable());
-            var result = new PageList<DoctorInfoDTO>(listDoctor.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
-            return Ok(result);
+            //var result = new PageList<DoctorInfoDTO>(listDoctor.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
+            return Ok(listDoctor);
         }
 
         /// <summary>
@@ -42,14 +44,14 @@ namespace ClinicManageAPI.Controllers
         /// <param name="name"></param>
         /// <returns>List Doctor if have any Doctor with same name</returns>
         [HttpGet("GetDoctorByName")]
-        public async Task<IActionResult> GetDoctorByName(string name,[FromQuery] Pagination resultPage)
+        public async Task<IActionResult> GetDoctorByName(string name/*,[FromQuery] Pagination resultPage*/)
         {
             var doctor = await _context.doctors.Include(x => x.User)
                 .Where(y => y.User.FirstName.Contains(name) || y.User.LastName.Contains(name))
                 .ToListAsync();
             var listDoctor = _mapper.ProjectTo<DoctorInfoDTO>(doctor.AsQueryable());
-            var result = new PageList<DoctorInfoDTO>(listDoctor.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
-            return Ok(result);
+            //var result = new PageList<DoctorInfoDTO>(listDoctor.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
+            return Ok(listDoctor);
         }
 
         // HttpGet attribute defines the endpoint for the method
@@ -72,6 +74,40 @@ namespace ClinicManageAPI.Controllers
 
             // Return the mapped doctor
             return Ok(doctorDto);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateDoctor(CreateDoctorDTO createDoctorDTO)
+        {
+            var createUser = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+            var user = _mapper.Map<User>(createDoctorDTO);
+            var result = await _userManager.CreateAsync(user, createDoctorDTO.Password);
+            user.CreateUser(createUser);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.Doctor); 
+                //CHÕ NÀY ADMIN TẠO NÊN LÀ CHO MAIL CONFRIM LUÔN
+               
+                _context.SaveChanges();
+
+
+
+                return Ok("Create new account sucessfully");
+            }
+
+            return BadRequest(result);
+        }
+        [HttpPut("DeleteDoctor")]
+        public async Task<IActionResult> DeleteDoctor(int DoctorId)
+        {
+            var doctor = await _context.doctors.Include(x => x.User).FirstOrDefaultAsync(x => x.Id == DoctorId);
+            if(doctor is null)
+            {
+                return BadRequest("No Doctor was found");
+            }
+            var user = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+            _context.Users.Update(doctor.User.DeleteUser(user));
+            _context.SaveChanges();
+            return Ok("Delete Doctor " +doctor.User.FullName+ " Successfully");
         }
     }
 }
