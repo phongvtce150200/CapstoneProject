@@ -17,6 +17,7 @@ using ClinicManageAPI.Respone;
 using ClinicManageAPI.Helper;
 using Microsoft.AspNetCore.Authorization;
 using ClinicManageAPI.DTO.AuthenticationDtos;
+using ClinicManageAPI.DTO;
 
 namespace ClinicManageAPI.Controllers
 {
@@ -149,6 +150,12 @@ namespace ClinicManageAPI.Controllers
             return BadRequest(result);
         }
 
+        /// <summary>
+        /// Confirm email
+        /// </summary>
+        /// <param name="usermail"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
         [HttpGet("ConfirmMail")]
         public async Task<IActionResult> ConfirmMail(string usermail, string code)
         {
@@ -164,6 +171,12 @@ namespace ClinicManageAPI.Controllers
 
             return BadRequest("Something went wrong");
         }
+
+        /// <summary>
+        /// Request token to confirm email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         [HttpGet("RequestConfirmEmail")]
         public async Task<IActionResult> RequestConfirmEmail(string email)
         {
@@ -178,12 +191,63 @@ namespace ClinicManageAPI.Controllers
                 new { usermail = user.Email, code = code });
             string htmlBody = "<html><body>Please confirm your account by clicking <a href='" + callbackUrl + "'>Click this link</a></body></html>";
             SendMail.SendEmail(user.Email, "Confirm Your Email Account", htmlBody, ""); 
-            var result = await _userManager.ConfirmEmailAsync(user, code);
-            if (result.Succeeded)
-            {
-                return Ok("Email has been sent");
-            }
-            return BadRequest();
+            return Ok("Email has been sent");
         }
+
+        [HttpPost("RequestResetPassword")]
+        public async Task<IActionResult> RequestResetPassword(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return BadRequest("Couldn't find any accounts associated with this email");
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            //string htmlBody = "<html><body>Please confirm your account by clicking <a href='" + callbackUrl + "'>Click this link</a></body></html>";
+            int subToken1 = token.ToString().Length;
+            string subToken = token.ToString().Substring(token.LastIndexOf('+'), 6);
+            SendMail.SendEmail(user.Email, "Reset Password", "Your password reset code is: " + subToken, "");
+
+            return Ok(token);
+        }
+
+        [HttpGet("GetResetPassword")]
+        public ResetPasswordDTO GetResetPasswordModel(string email, string token)
+        {
+            ResetPasswordDTO rpDTO = new ResetPasswordDTO();
+            rpDTO.token = token;
+            rpDTO.email = email;
+            return rpDTO;
+        }
+
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> GetResetPassword(string email, string newpw, string pwconfirm, string fulltoken)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            int tokenLenght = fulltoken.ToString().Length;
+            int indexOfLastChar = fulltoken.ToString().LastIndexOf('+');
+            string subToken1 = fulltoken.ToString().Substring(0, indexOfLastChar);
+            
+            string subToken3 = fulltoken.ToString().Substring(indexOfLastChar + 7);
+            //string token = subToken1 + stoken + subToken3;
+            if (user == null)
+            {
+                return BadRequest("Couldn't find account");
+            }
+            if(newpw.Equals(pwconfirm) == false)
+            {
+                return BadRequest("Password Confirm dose not matching");
+            }
+            var result = await _userManager.ResetPasswordAsync(user, fulltoken, newpw);
+            if(!result.Succeeded)
+            {
+                return BadRequest("Some thing went wrong");
+            }
+            return Ok("Password has been changed");
+            
+        }
+
+
     }
 }
