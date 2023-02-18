@@ -109,5 +109,18 @@ namespace ClinicManageAPI.Controllers
             _context.SaveChanges();
             return Ok("Delete Doctor " +doctor.User.FullName+ " Successfully");
         }
+        [HttpPut("RestoreDoctor")]
+        public async Task<IActionResult> RestoreDoctor(int DoctorId)
+        {
+            var doctor = await _context.doctors.Include(x => x.User).FirstOrDefaultAsync(x => x.Id == DoctorId);
+            if (doctor is null)
+            {
+                return BadRequest("No Doctor was found");
+            }
+            var user = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+            _context.Users.Update(doctor.User.RestoreUser(user));
+            _context.SaveChanges();
+            return Ok("Restore Doctor " + doctor.User.FullName + " Successfully");
+        }
     }
 }

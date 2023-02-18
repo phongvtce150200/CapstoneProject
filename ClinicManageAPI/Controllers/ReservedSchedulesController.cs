@@ -84,7 +84,7 @@ namespace ClinicManageAPI.Controllers
         // POST: api/ReservedSchedules
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         // Check if there is a booked slot in DB system will not create, otherwise it will create new booked slot.
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult PostReservedSchedule(ReservedScheduleDTO reservedSchedule)
         {
             var list = GetByDocId(reservedSchedule.DocId);
@@ -96,7 +96,7 @@ namespace ClinicManageAPI.Controllers
             _context.SaveChangesAsync();
             return Ok(schedule);
         }
-
+*/
         // DELETE: api/ReservedSchedules/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReservedSchedule(int id)
@@ -113,16 +113,16 @@ namespace ClinicManageAPI.Controllers
             return NoContent();
         }
         //Get a work schedule of a doctor 
-        [HttpGet("DocId/{DocId}")]
+       /* [HttpGet("DocId/{DocId}")]
         public async Task<ActionResult<IEnumerable<ReservedSchedule>>> GetByDocId(int DocId)
         {
-            var reservedSchedule = _context.reservedSchedules.Where(x => x.DocId == DocId);
+            var reservedSchedule = _context.reservedSchedules.Where(x => x.DoctorId == DocId);
             if (reservedSchedule == null)
             {
                 return NotFound();
             }
             return await reservedSchedule.ToListAsync();
-        }
+        }*/
         private bool ReservedScheduleExists(int id)
         {
             return _context.reservedSchedules.Any(e => e.Id == id);
