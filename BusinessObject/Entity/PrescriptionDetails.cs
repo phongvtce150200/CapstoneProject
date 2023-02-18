@@ -13,5 +13,18 @@ namespace BusinessObject.Entity
         public int MedicineId { get; set; }
         [ForeignKey("MedicineId")]
         public Medicine Medicine { get; set; }  
+        public int MedicineAmount { get; set; }
+        public string UsingDay { get; set; }
+        public string TimesPerDay { get; set; }
+        public string UsingType { get; set; }
+        public Session Session { get; set; }
+        public string Description { get; set; }
+
+    }
+    public enum Session
+    {
+        Morning = 1,
+        Noon = 2,
+        Afternoon = 3,
     }
 }

@@ -13,6 +13,5 @@ namespace BusinessObject.Entity
         [ForeignKey("UserId")]
         public User User { get; set; }
         public ICollection<Queue> queues { get; set; }
-        public ICollection<Prescription> prescriptions { get; set; }
     }
 }
