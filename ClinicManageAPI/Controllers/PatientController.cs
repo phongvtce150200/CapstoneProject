@@ -26,24 +26,33 @@ namespace ClinicManageAPI.Controllers
         }
 
         [HttpGet("GetAllPatient")]
-        public async Task<IActionResult> GetAllPatient([FromQuery] Pagination resultPage)
+        public async Task<IActionResult> GetAllPatient(/*, [FromQuery] Pagination resultPage*/)
         {
             var user = await _context.patients.Include(x => x.User).ToListAsync();
             if (user == null) return BadRequest("Don't have any User with role Patient");
             var listPatient = _mapper.ProjectTo<PatientDTO>(user.AsQueryable()).AsNoTracking().ToList();
-            var result = new PageList<PatientDTO>(listPatient.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
-            return Ok(result);
+            /*var result = new PageList<PatientDTO>(Patient.AsQueryable()/*, resultPage.PageIndex, resultPage.PageSize);*/
+            return Ok(listPatient);
         }
 
         [HttpGet("GetPatientByName")]
-        public async Task<IActionResult> GetPatientByName(string name, [FromQuery] Pagination resultPage)
+        public async Task<IActionResult> GetPatientByName(string name/*, [FromQuery] Pagination resultPage*/)
         {
             var user = await _context.patients.Include(x => x.User).ToListAsync();
             if (user == null) return BadRequest("Don't have any User with role Patient");
             var listPatient = _mapper.ProjectTo<PatientDTO>(user.AsQueryable()
                 .Where(x => x.User.FullName.ToLower().Contains(name))).AsNoTracking().ToList();
-            var result = new PageList<PatientDTO>(listPatient.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
-            return Ok(result);
+            /*var result = new PageList<PatientDTO>(Patient.AsQueryable()/*, resultPage.PageIndex, resultPage.PageSize);*/
+            return Ok(listPatient);
+        }
+        [HttpGet("GetPatientById")]
+        public async Task<IActionResult> GetPatientById(int id/*, [FromQuery] Pagination resultPage*/)
+        {
+            var user = await _context.patients.Include(x => x.User).ToListAsync();
+            if (user == null) return BadRequest("Don't have any User with role Patient");
+            var Patient = _mapper.ProjectTo<PatientDTO>(user.AsQueryable().Where(x => x.Id == id));
+            /*var result = new PageList<PatientDTO>(Patient.AsQueryable()/*, resultPage.PageIndex, resultPage.PageSize);*/
+            return Ok(Patient);
         }
     }
 }
