@@ -20,7 +20,6 @@ namespace BusinessObject.Entity
         [ForeignKey("ScheduleId")]
         public ReservedSchedule Schedule { get; set; }
         public Test Test { get; set; }
-        public Invoice Invoice { get; set; }
         public ICollection<AppointmentDetails> AppointmentDetails { get; set; }
     }
 }
