@@ -59,9 +59,9 @@ namespace ClinicManageAPI.Controllers
                 return BadRequest();
             }
             var find = _context.services.Find(id);
-            var user = User.Identity.Name;
+            var createUser = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
             var service = _mapper.Map<ServiceDTO, Service>(serviceDTO,find);
-            _context.Entry(service.UpdateService(user)).State = EntityState.Modified;
+            _context.Entry(service.UpdateService(createUser)).State = EntityState.Modified;
 
             try
             {
@@ -87,9 +87,9 @@ namespace ClinicManageAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> PostService(ServiceDTO serviceDTO)
         {
-            var user = User.Identity.Name;
+            var createUser = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
             var service = _mapper.Map<Service>(serviceDTO);
-            _context.services.Add(service.PostService(user));
+            _context.services.Add(service.PostService(createUser));
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetService", new { id = service.Id }, service);
@@ -99,14 +99,30 @@ namespace ClinicManageAPI.Controllers
         [HttpPut("DeleteService/{id}")]
         public async Task<IActionResult> DeleteService(int id)
         {
-            var user = User.Identity.Name;
+            var createUser = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
             var service = await _context.services.FindAsync(id);
             if (service == null)
             {
                 return NotFound();
             }
 
-            _context.services.Update(service.DeleteService(user));
+            _context.services.Update(service.DeleteService(createUser));
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPut("RestoreService/{id}")]
+        public async Task<IActionResult> RestoreService(int id)
+        {
+            var createUser = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+            var service = await _context.services.FindAsync(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            _context.services.Update(service.RestoreDeleteService(createUser));
             await _context.SaveChangesAsync();
 
             return NoContent();

@@ -29,5 +29,13 @@ namespace ClinicManageAPI.Extentions
 
             return user;
         }
+        public static User RestoreUser(this User user, string userCreate)
+        {
+            user.UpdatedDate = DateTime.UtcNow;
+            user.UpdatedBy = userCreate;
+            user.IsDelete = false;
+
+            return user;
+        }
     }
 }

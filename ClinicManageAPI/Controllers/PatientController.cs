@@ -3,6 +3,7 @@ using BusinessObject;
 using BusinessObject.Entity;
 using ClinicManageAPI.DTO;
 using ClinicManageAPI.DTO.PatientDtos;
+using ClinicManageAPI.Extentions;
 using ClinicManageAPI.ServiceAPI.Paginations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +54,32 @@ namespace ClinicManageAPI.Controllers
             var Patient = _mapper.ProjectTo<PatientDTO>(user.AsQueryable().Where(x => x.Id == id));
             /*var result = new PageList<PatientDTO>(Patient.AsQueryable()/*, resultPage.PageIndex, resultPage.PageSize);*/
             return Ok(Patient);
+        }
+        [HttpPut("DeletePut")]
+        public async Task<IActionResult> DeletePatient(int id)
+        {
+            var patient = await _context.patients.Include(x => x.User).FirstOrDefaultAsync(x => x.Id == id);
+            if (patient is null)
+            {
+                return BadRequest("No Patient was found");
+            }
+            var user = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+            _context.Users.Update(patient.User.DeleteUser(user));
+            _context.SaveChanges();
+            return Ok("Delete Nurse " + patient.User.FullName + " Successfully");
+        }
+        [HttpPut("RestorePatient")]
+        public async Task<IActionResult> RestorePatient(int id)
+        {
+            var patient = await _context.patients.Include(x => x.User).FirstOrDefaultAsync(x => x.Id == id);
+            if (patient is null)
+            {
+                return BadRequest("No Patient was found");
+            }
+            var user = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+            _context.Users.Update(patient.User.RestoreUser(user));
+            _context.SaveChanges();
+            return Ok("Restore Nurse " + patient.User.FullName + " Successfully");
         }
     }
 }
