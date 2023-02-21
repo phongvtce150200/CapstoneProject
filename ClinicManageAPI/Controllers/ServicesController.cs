@@ -5,8 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObject;
 using BusinessObject.Entity;
 using AutoMapper;
-using ClinicManageAPI.DTO;
-using ClinicManageAPI.ServiceAPI.Paginations;
 using ClinicManageAPI.DTO.ServiceDtos;
 using ClinicManageAPI.Extentions;
 

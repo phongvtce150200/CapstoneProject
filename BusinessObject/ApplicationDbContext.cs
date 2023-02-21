@@ -27,7 +27,6 @@ namespace BusinessObject
         public DbSet<Queue> queues { get; set; }
         public DbSet<Service> services { get; set; }
         public DbSet<Test> tests { get; set; }
-        public DbSet<Qualification> qualifications { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<ReservedSchedule> reservedSchedules { get; set; }
 
@@ -76,7 +75,6 @@ namespace BusinessObject
             builder.ApplyConfiguration(new NurseConfig());
             builder.ApplyConfiguration(new PatientConfig());
             builder.ApplyConfiguration(new PrescriptionDetailsConfig());
-            builder.ApplyConfiguration(new QualificationConfig());
             builder.ApplyConfiguration(new ReservedScheduleConfig());
             //Adding Seeder Data
             builder.Entity<Medicine>().SeedData();

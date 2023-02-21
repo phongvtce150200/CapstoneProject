@@ -13,6 +13,5 @@ namespace BusinessObject.Entity
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
-        public ICollection<Qualification> qualifications { get; set; }
     }
 }
