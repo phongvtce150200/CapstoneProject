@@ -15,8 +15,9 @@ namespace BusinessObject.Entity
         public DateTime BirthDay { get; set; }
         public Gender Gender { get; set; }
         public string Address { get; set; }
-        public int? CreatedBy { get; set; }
-        public int? UpdatedBy { get; set; }
+        public string CreatedBy { get; set; }
+        public string? UpdatedBy { get; set; }
+        public string? DeletedBy { get; set; }
         public bool IsDelete { get; set; } = false;
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }

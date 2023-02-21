@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using ClinicManageAPI.DTO.UserDtos;
+using System.Threading.Tasks;
+using ClinicManageAPI.Extentions;
 
 namespace ClinicManageAPI.Controllers
 {
@@ -82,12 +84,13 @@ namespace ClinicManageAPI.Controllers
         }*/
 
         // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public IActionResult DeleteUser(string id)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
         {
-            var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null) return BadRequest("User is Invalid");
-            _context.Remove(user);
+            var userDelete = User.Identity.Name != null ? User.Identity.Name : "Anonymous";
+            _context.Users.Update(user.DeleteUser(userDelete));
             _context.SaveChanges();
             return Ok(user);
         }

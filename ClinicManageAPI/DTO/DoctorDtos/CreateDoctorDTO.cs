@@ -1,8 +1,9 @@
-﻿using System;
+﻿using BusinessObject.Entity;
+using System;
 
-namespace ClinicManageAPI.DTO.AuthenticationDtos
+namespace ClinicManageAPI.DTO.DoctorDtos
 {
-    public class RegisterDTO
+    public class CreateDoctorDTO
     {
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -13,7 +14,6 @@ namespace ClinicManageAPI.DTO.AuthenticationDtos
         public DateTime Birthday { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
-        //cmnd
-        //avt
+        public CreateDoctorInfoDTO Doctor { get; set; }
     }
 }

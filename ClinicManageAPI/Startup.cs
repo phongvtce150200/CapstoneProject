@@ -1,3 +1,4 @@
+using B2Net;
 using BusinessObject;
 using BusinessObject.Entity;
 using ClinicManageAPI.Hubs;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog.Context;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Claims;
@@ -47,6 +49,10 @@ namespace ClinicManageAPI
                                   });
             });
 
+            //Add lifetome for Token
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+            options.TokenLifespan = TimeSpan.FromHours(24));
+
             //Add Automapper
             services.AddMapperConfig();
 
@@ -62,6 +68,8 @@ namespace ClinicManageAPI
                 options.Password.RequireUppercase = false; //Khong bat buoc co uppercase
                 options.Password.RequiredLength = 6; //So ky tu toi da
                 options.Password.RequiredUniqueChars = 1; //So ky tu rieng biet
+                //Thiet lap Token
+
             }).AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
@@ -123,6 +131,7 @@ namespace ClinicManageAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"]))
                 };
             });
+            services.AddSingleton(x => new B2Client("8cf21d9ed82f", "00586eaff88f6773222396833126d29d802de72a28"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
