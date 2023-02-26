@@ -17,6 +17,9 @@ namespace BusinessObject.Entity
         public DateTime Start { get; set; }
         [Required]
         public DateTime End { get; set; }
-        public ICollection<Appointment> appointments { get; set; }
+        /*public ICollection<Appointment> appointments { get; set; }*/
+        public int appointmentId { get; set; }
+        [ForeignKey("appointmentId")]
+        public Appointment Appointment { get; set; }
     }
 }
