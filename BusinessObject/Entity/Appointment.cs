@@ -16,8 +16,8 @@ namespace BusinessObject.Entity
         public int PatientId { get; set; }
         [ForeignKey("PatientId")]
         public Patient Patient { get; set; }
-        public int ScheduleId { get; set; }
-        [ForeignKey("ScheduleId")]
+/*        public int ScheduleId { get; set; }
+        [ForeignKey("ScheduleId")]*/
         public ReservedSchedule Schedule { get; set; }
         public Test Test { get; set; }
         public ICollection<AppointmentDetails> AppointmentDetails { get; set; }

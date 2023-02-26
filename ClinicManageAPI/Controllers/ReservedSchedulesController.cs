@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using BusinessObject;
-using BusinessObject.Entity;
-using ClinicManageAPI.DTO;
-using ClinicManageAPI.DTO.ScheduleDtos;
-using ClinicManageAPI.ServiceAPI.Paginations;
+using ClinicManageAPI.DTO.AppointmentDtos;
+using ClinicManageAPI.DTO.ReservedScheduleDtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,17 +24,17 @@ namespace ClinicManageAPI.Controllers
         }
 
         // GET: api/ReservedSchedules
-        [HttpGet]
-        public async Task<IActionResult> GetReservedSchedules([FromQuery] Pagination resultPage)
+       /* [HttpGet]
+        public async Task<IActionResult> GetReservedSchedules(*//*[FromQuery] Pagination resultPage*//*)
         {
             var schedules = await _context.reservedSchedules.ToListAsync();
             var schedule = _mapper.ProjectTo<ReservedScheduleDTO>(schedules.AsQueryable());
-            var result = new PageList<ReservedScheduleDTO>(schedule.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
-            return Ok(result);
-        }
+            //var result = new PageList<ReservedScheduleDTO>(schedule.AsQueryable(), resultPage.PageIndex, resultPage.PageSize);
+            return Ok(schedule);
+        }*/
 
         // GET: api/ReservedSchedules/5
-        [HttpGet("{id}")]
+       /* [HttpGet("{id}")]
         public async Task<ActionResult<ReservedSchedule>> GetReservedSchedule(int id)
         {
             var reservedSchedule = await _context.reservedSchedules.FindAsync(id);
@@ -48,11 +45,11 @@ namespace ClinicManageAPI.Controllers
             }
 
             return reservedSchedule;
-        }
+        }*/
 
         // PUT: api/ReservedSchedules/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+      /*  [HttpPut("{id}")]
         public async Task<IActionResult> PutReservedSchedule(int id, ReservedScheduleDTO reservedSchedule)
         {
             if (id != reservedSchedule.Id)
@@ -79,7 +76,7 @@ namespace ClinicManageAPI.Controllers
             }
 
             return NoContent();
-        }
+        }*/
 
         // POST: api/ReservedSchedules
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -113,16 +110,17 @@ namespace ClinicManageAPI.Controllers
             return NoContent();
         }
         //Get a work schedule of a doctor 
-       /* [HttpGet("DocId/{DocId}")]
-        public async Task<ActionResult<IEnumerable<ReservedSchedule>>> GetByDocId(int DocId)
+        [HttpGet("DocId/{DocId}")]
+        public async Task<IActionResult> GetAllScheduleByDocId(int DocId)
         {
-            var reservedSchedule = _context.reservedSchedules.Where(x => x.DoctorId == DocId);
-            if (reservedSchedule == null)
+            var reservedSchedule = await _context.appointments.Where(x => x.DoctorId == DocId).Include(y => y.Schedule).ToListAsync();
+            var map = _mapper.ProjectTo<AppointmentDTO>(reservedSchedule.AsQueryable());
+            if (reservedSchedule.Count <= 0)
             {
                 return NotFound();
             }
-            return await reservedSchedule.ToListAsync();
-        }*/
+            return Ok(map);
+        }
         private bool ReservedScheduleExists(int id)
         {
             return _context.reservedSchedules.Any(e => e.Id == id);
