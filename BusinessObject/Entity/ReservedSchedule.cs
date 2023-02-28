@@ -10,15 +10,15 @@ namespace BusinessObject.Entity
     {
      
         [Required]
-        public string? Title { get; set; }
+        public string Title { get; set; }
         [Required]
-        public string? Description { get; set; }
+        public string Description { get; set; }
         [Required]
-        public DateTime? Start { get; set; }
+        public DateTime Start { get; set; }
         [Required]
-        public DateTime? End { get; set; }
+        public DateTime End { get; set; }
         /*public ICollection<Appointment> appointments { get; set; }*/
-        public int? appointmentId { get; set; }
+        public int appointmentId { get; set; }
         [ForeignKey("appointmentId")]
         public Appointment Appointment { get; set; }
     }

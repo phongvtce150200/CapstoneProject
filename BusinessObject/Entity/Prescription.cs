@@ -10,13 +10,12 @@ namespace BusinessObject.Entity
 {
     public class Prescription : BaseEntity
     {
-     /*   public int InvoiceId { get; set; }
+        public int InvoiceId { get; set; }
         [ForeignKey("InvoiceId")]
-        public Invoice Invoice { get; set; }*/
-        public int? AppointmentId { get; set; }
+        public Invoice Invoice { get; set; }
+        public int AppointmentId { get; set; }
         [ForeignKey("AppointmentId")]
         public Appointment Appointment { get; set; }
-        public ICollection<PrescriptionDetails>? PrescriptionDetails { get; set; }
-        public Invoice Invoice { get; set; }
+        public ICollection<PrescriptionDetails> PrescriptionDetails { get; set; }
     }
 }
