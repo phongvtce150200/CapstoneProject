@@ -6,6 +6,8 @@ using ClinicManageAPI.DTO.DoctorDtos;
 using ClinicManageAPI.DTO.MedicineDtos;
 using ClinicManageAPI.DTO.NurseDtos;
 using ClinicManageAPI.DTO.PatientDtos;
+using ClinicManageAPI.DTO.PrescriptionDetailDtos;
+using ClinicManageAPI.DTO.PrescriptionDtos;
 using ClinicManageAPI.DTO.QueueDtos;
 using ClinicManageAPI.DTO.ReservedScheduleDtos;
 using ClinicManageAPI.DTO.ServiceDtos;
@@ -37,6 +39,9 @@ namespace ClinicManageAPI.MapperConfig
             CreateMap<CreateNurseInfoDTO, Nurse>().ReverseMap();
             CreateMap<AppointmentDTO, Appointment>().ReverseMap();
             CreateMap<ReservedScheduleInfoDTO, ReservedSchedule>().ReverseMap();
+            CreateMap<PrescriptionsDTO, Prescription>().ReverseMap();
+            CreateMap<PrescriptionDetailDTO, PrescriptionDetails>().ReverseMap();
+            CreateMap<Appointment, AppointmentPrescriptionDTO>().ReverseMap();
         }
     }
 }
