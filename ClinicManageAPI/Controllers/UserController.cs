@@ -41,7 +41,7 @@ namespace ClinicManageAPI.Controllers
                Gender = r.Key.Gender.ToString(),
                Email = r.Key.Email,
                PhoneNumber = r.Key.PhoneNumber,
-               BirthDay = r.Key.BirthDay.ToShortDateString(),
+               BirthDay = r.Key.BirthDay.ToString(),
                Address = r.Key.Address,
                Role = string.Join(",", r.Select(c => c.r.Name).ToArray())
            }).ToList().FirstOrDefault(u => u.Id == id);
