@@ -7,10 +7,8 @@ namespace ClinicManageAPI.DTO.PrescriptionDtos
 {
     public class PrescriptionsDTO
     {
+        public int Id { get; set; } 
         public int AppointmentId { get; set; }
-        
-        public AppointmentPrescriptionDTO Appointment { get; set; }
         public ICollection<PrescriptionDetailDTO> PrescriptionDetails { get; set; }
-
     }
 }

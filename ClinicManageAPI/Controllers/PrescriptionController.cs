@@ -4,7 +4,6 @@ using BusinessObject.Entity;
 using ClinicManageAPI.DTO.PrescriptionDetailDtos;
 using ClinicManageAPI.DTO.PrescriptionDtos;
 using ClinicManageAPI.Extentions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -29,7 +28,7 @@ namespace ClinicManageAPI.Controllers
         [HttpGet("GetAllPrescriptions")]
         public async Task<IActionResult> GetAllPrescriptions()
         {
-            var prescriptions = await _context.prescriptions.Include(p => p.PrescriptionDetails).ToListAsync();
+            var prescriptions = await _context.prescriptions.Include(p => p.PrescriptionDetails).ThenInclude(x => x.Medicine).ToListAsync();
             if (prescriptions == null) return BadRequest("Don't have any prescriptions");
             var listPrescription = _mapper.ProjectTo<PrescriptionsDTO>(prescriptions.AsQueryable()).AsNoTracking().ToList();  
             
@@ -70,7 +69,7 @@ namespace ClinicManageAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Prescription>> PostPrescription(int id, string descriptionIn, List<PrescriptionDetailDTO> prescriptionDetailDTO)
+        public async Task<ActionResult<Prescription>> PostPrescription(int id, string descriptionIn, List<CreatePrescriptionDTO> prescriptionDetailDTO)
         {
             try
             {
@@ -97,22 +96,7 @@ namespace ClinicManageAPI.Controllers
                 await _context.invoices.AddAsync(invoice.PostInvoice(user));
                 await _context.SaveChangesAsync();
 
-                // Custome result
-                var app = _context.appointments.Where(x => x.Id == id).FirstOrDefault();
-                
-                PrescriptionInfoDTO result = new PrescriptionInfoDTO();
-                result.IdDoctor = app.DoctorId;
-                result.IdPatient = app.PatientId;
-                result.CreateDate = (System.DateTime)prescription.CreatedDate;
-                result.PrescriptionDetails = new List<PrescriptionDetails>();
-                foreach (var item in prescriptionDetailDTO)
-                {
-                    var listpsdt = _mapper.Map<PrescriptionDetails>(item);
-                    result.PrescriptionDetails.Add(listpsdt);
-                }
-
-
-                    return Ok(result);
+                return Ok("Success");
             }
             catch (System.Exception e)
             {
