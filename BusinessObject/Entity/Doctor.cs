@@ -9,9 +9,9 @@ namespace BusinessObject.Entity
     public class Doctor
     {
         [Key]
-        public int Id { get; set; }
-        public int Experience { get; set; }
-        public string UserId { get; set; }
+        public int? Id { get; set; }
+        public int? Experience { get; set; }
+        public string? UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
         public ICollection<Queue> queues { get; set; }

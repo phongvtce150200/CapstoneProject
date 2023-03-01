@@ -10,9 +10,9 @@ namespace BusinessObject.Entity
     {
      
         [Required]
-        public string Title { get; set; }
+        public string? Title { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [Required]
         public DateTime Start { get; set; }
         [Required]
