@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System;
+using ClinicManageAPI.DTO.AppointmentDtos;
 
 namespace ClinicManageAPI.DTO.ReservedScheduleDtos
 {
@@ -9,5 +10,6 @@ namespace ClinicManageAPI.DTO.ReservedScheduleDtos
         public string Description { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
+        public AppointmentDTO Appointment { get; set; }
     }
 }

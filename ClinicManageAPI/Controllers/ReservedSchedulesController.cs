@@ -4,6 +4,7 @@ using ClinicManageAPI.DTO.AppointmentDtos;
 using ClinicManageAPI.DTO.ReservedScheduleDtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -113,13 +114,24 @@ namespace ClinicManageAPI.Controllers
         [HttpGet("DocId/{DocId}")]
         public async Task<IActionResult> GetAllScheduleByDocId(int DocId)
         {
-            var reservedSchedule = await _context.appointments.Where(x => x.DoctorId == DocId).Include(y => y.Schedule).ToListAsync();
-            var map = _mapper.ProjectTo<AppointmentDTO>(reservedSchedule.AsQueryable());
-            if (reservedSchedule.Count <= 0)
+            try
             {
-                return NotFound();
+                //var reservedSchedule = await _context.appointments.Where(x => x.DoctorId == DocId).Include(y => y.Schedule).ToListAsync();
+                var reservedSchedule = await _context.reservedSchedules.Include(x => x.Appointment).Where(x => x.Appointment.DoctorId == DocId).ToListAsync();
+                var map = _mapper.ProjectTo<ReservedScheduleInfoDTO>(reservedSchedule.AsQueryable());
+                if (reservedSchedule.Count <= 0)
+                {
+                    return NotFound();
+                }
+                return Ok(map);
             }
-            return Ok(map);
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+           
+           
         }
         private bool ReservedScheduleExists(int id)
         {

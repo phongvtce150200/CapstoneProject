@@ -6,6 +6,5 @@ namespace ClinicManageAPI.DTO.AppointmentDtos
     {
         public int DoctorId { get; set; }
         public int PatientId { get; set; }
-        public ReservedScheduleInfoDTO Schedule { get; set; }
     }
 }
