@@ -97,7 +97,22 @@ namespace ClinicManageAPI.Controllers
                 await _context.invoices.AddAsync(invoice.PostInvoice(user));
                 await _context.SaveChangesAsync();
 
-                return Ok("Success");
+                // Custome result
+                var app = _context.appointments.Where(x => x.Id == id).FirstOrDefault();
+                
+                PrescriptionInfoDTO result = new PrescriptionInfoDTO();
+                result.IdDoctor = app.DoctorId;
+                result.IdPatient = app.PatientId;
+                result.CreateDate = (System.DateTime)prescription.CreatedDate;
+                result.PrescriptionDetails = new List<PrescriptionDetails>();
+                foreach (var item in prescriptionDetailDTO)
+                {
+                    var listpsdt = _mapper.Map<PrescriptionDetails>(item);
+                    result.PrescriptionDetails.Add(listpsdt);
+                }
+
+
+                    return Ok(result);
             }
             catch (System.Exception e)
             {
