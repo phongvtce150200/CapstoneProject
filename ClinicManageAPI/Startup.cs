@@ -43,9 +43,11 @@ namespace ClinicManageAPI
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   policy =>
                                   {
-                                      policy.AllowAnyOrigin();
-                                      policy.AllowAnyHeader();
-                                      policy.AllowAnyMethod();
+                                      policy.WithOrigins("http://localhost:8080")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod()
+                                      .SetIsOriginAllowed((x) => true)
+                                      .AllowCredentials();
                                   });
             });
 
