@@ -84,15 +84,27 @@ namespace ClinicManageAPI.Controllers
         
             var getDoctorId = _context.doctors.FirstOrDefault(x => x.UserId == user.Id);
             var getNurseId  = _context.nurses.FirstOrDefault(x => x.UserId == user.Id);
-            
-            if(getDoctorId == null && getNurseId == null)
+            var getPatientId = _context.patients.FirstOrDefault(x => x.UserId == user.Id);
+
+            if (getDoctorId == null && getNurseId == null && getPatientId == null)
             {
-                return Ok(new LoginResponse
+                return Ok(new LoginPatientResponse
                 {
                     Token = tokenHandler.WriteToken(token),
                     Id = user.Id,
                     FullName = user.FullName,
-                    Role = role
+                    Role = role,
+                });
+            }
+            if(getPatientId != null)
+            {
+                return Ok(new LoginPatientResponse
+                {
+                    Token = tokenHandler.WriteToken(token),
+                    Id = user.Id,
+                    FullName = user.FullName,
+                    Role = role,
+                    PatientId = getPatientId.Id,
                 });
             }
             if(getDoctorId != null)
