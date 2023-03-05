@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog.Context;
@@ -36,16 +37,19 @@ namespace ClinicManageAPI
         public void ConfigureServices(IServiceCollection services)
         {
             //Add DbContext
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
+            .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddCors(options =>
             {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   policy =>
                                   {
-                                      policy.AllowAnyOrigin();
-                                      policy.AllowAnyHeader();
-                                      policy.AllowAnyMethod();
+                                      policy.WithOrigins("http://localhost:8080")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod()
+                                      .SetIsOriginAllowed((x) => true)
+                                      .AllowCredentials();
                                   });
             });
 

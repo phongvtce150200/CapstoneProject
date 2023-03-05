@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using BusinessObject.Entity;
+using ClinicManageAPI.DTO.AppointmentDtos;
 using ClinicManageAPI.DTO.AuthenticationDtos;
 using ClinicManageAPI.DTO.DoctorDtos;
 using ClinicManageAPI.DTO.MedicineDtos;
 using ClinicManageAPI.DTO.NurseDtos;
 using ClinicManageAPI.DTO.PatientDtos;
+using ClinicManageAPI.DTO.PrescriptionDetailDtos;
+using ClinicManageAPI.DTO.PrescriptionDtos;
 using ClinicManageAPI.DTO.QueueDtos;
-using ClinicManageAPI.DTO.ScheduleDtos;
+using ClinicManageAPI.DTO.ReservedScheduleDtos;
 using ClinicManageAPI.DTO.ServiceDtos;
 using ClinicManageAPI.DTO.UserDtos;
 
@@ -30,11 +33,18 @@ namespace ClinicManageAPI.MapperConfig
             CreateMap<Queue, QueueDTO>().ReverseMap();
             CreateMap<Queue, GetQueueDTO>().ReverseMap();
             CreateMap<Patient, PatientDTO>().ReverseMap();
-            CreateMap<ReservedSchedule, ReservedScheduleDTO>().ReverseMap();  
             CreateMap<CreateDoctorDTO, User>().ReverseMap();
             CreateMap<CreateDoctorInfoDTO, Doctor>().ReverseMap();
             CreateMap<CreateNurseDTO, User>().ReverseMap();
             CreateMap<CreateNurseInfoDTO, Nurse>().ReverseMap();
+            CreateMap<AppointmentDTO, Appointment>().ReverseMap();
+            CreateMap<ReservedScheduleInfoDTO, ReservedSchedule>().ReverseMap();
+            CreateMap<PrescriptionsDTO, Prescription>().ReverseMap();
+            CreateMap<PrescriptionDetailDTO, PrescriptionDetails>().ReverseMap();
+            CreateMap<CreatePrescriptionDTO, PrescriptionDetails>().ReverseMap();
+            CreateMap<GetInfoAppointmentDTO,Appointment>().ReverseMap();
+            CreateMap<PatientInfoDTO,Patient>().ReverseMap();
+            CreateMap<UsefulInfoDTO,User>().ReverseMap();
         }
     }
 }
