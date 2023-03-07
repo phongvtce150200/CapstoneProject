@@ -20,5 +20,6 @@ namespace BusinessObject.Entity
         public ReservedSchedule Schedule { get; set; }
         public Test Test { get; set; }
         public ICollection<AppointmentDetails> AppointmentDetails { get; set; }
+        public ICollection<Invoice> Invoices { get; set; }
     }
 }

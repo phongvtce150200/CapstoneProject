@@ -8,7 +8,8 @@ namespace BusinessObject.Entity
 {
     public class ReservedSchedule : BaseEntity
     {
-     
+        [Required]
+        public int? DocId { get; set; }
         [Required]
         public string? Title { get; set; }
         [Required]
@@ -18,7 +19,7 @@ namespace BusinessObject.Entity
         [Required]
         public DateTime End { get; set; }
         /*public ICollection<Appointment> appointments { get; set; }*/
-        public int appointmentId { get; set; }
+        public int? appointmentId { get; set; }
         [ForeignKey("appointmentId")]
         public Appointment Appointment { get; set; }
     }
