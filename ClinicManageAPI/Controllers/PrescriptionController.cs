@@ -49,7 +49,7 @@ namespace ClinicManageAPI.Controllers
             return Ok(prescription);
         }
 
-        [HttpGet("GetAllPrescriptionsByDoctor")]
+        [HttpGet("GetAllPrescriptionsByDoctorName/{name}")]
         public async Task<IActionResult> GetAllPrescriptionsByDoctor(string name)
         {
             try
@@ -66,6 +66,27 @@ namespace ClinicManageAPI.Controllers
             {
                 return BadRequest(e.Message);
             }      
+        }
+        [HttpGet("GetAllPrescriptionsByPatientId/{id}")]
+        public async Task<IActionResult> GetAllPrescriptionsByPatientId(int id)
+        {
+            try
+            {
+                var patient = await _context.patients.Where(x => x.Id == id).Include(y => y.User).FirstOrDefaultAsync();
+                if(patient == null)
+                {
+                    return BadRequest("Patient is not valid");
+                }
+                var prescriptions = await _context.prescriptions.Include(p => p.Appointment).Include(c => c.PrescriptionDetails).Where(x => patient.Id == x.Appointment.PatientId).ToListAsync();
+                if (prescriptions == null) return BadRequest("Don't have any prescriptions");
+                var listPrescription = _mapper.Map<PrescriptionsDTO[]>(prescriptions.ToArray());
+
+                return Ok(listPrescription);
+            }
+            catch (System.Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
