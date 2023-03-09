@@ -129,8 +129,8 @@ namespace ClinicManageAPI.Controllers
            
            
         }
-        [HttpGet("GetDocScheduleByDate")]
-        public async Task<IActionResult> GetDocScheduleByDate(int DocId,[FromQuery] DateTime date)
+        [HttpGet("GetDocScheduleByDate/{DocId}/{date}")]
+        public async Task<IActionResult> GetDocScheduleByDate(int DocId,DateTime date)
         {
             try
             {
