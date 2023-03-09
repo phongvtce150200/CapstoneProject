@@ -109,6 +109,7 @@ namespace ClinicManageAPI.Controllers
             _context.SaveChanges();
             return Ok("Delete Doctor " +doctor.User.FullName+ " Successfully");
         }
+
         [HttpPut("RestoreDoctor")]
         public async Task<IActionResult> RestoreDoctor(int DoctorId)
         {
@@ -121,6 +122,29 @@ namespace ClinicManageAPI.Controllers
             _context.Users.Update(doctor.User.RestoreUser(user));
             _context.SaveChanges();
             return Ok("Restore Doctor " + doctor.User.FullName + " Successfully");
+        }
+
+        [HttpPut("EditDoctor")]
+        public async Task<IActionResult> EditDoctor(int id, EditDoctorDTO editDoctorDTO)
+        {
+            var getDoctor = await _context.doctors.FindAsync(id);
+            try
+            {
+                if (getDoctor is null)
+                {
+                    return BadRequest("No Doctor was found");
+                }
+                _mapper.Map(editDoctorDTO, getDoctor);
+                await _context.SaveChangesAsync();
+            }
+            catch (System.Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+            
+                
+            return Ok("Update doctor " + getDoctor.User.FullName + " Successful");
         }
     }
 }

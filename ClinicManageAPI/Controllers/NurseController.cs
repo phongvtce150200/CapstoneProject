@@ -108,5 +108,28 @@ namespace ClinicManageAPI.Controllers
             return Ok("Restore Nurse " + nurse.User.FullName + " Successfully");
         }
 
+        [HttpPut("EditNurse")]
+        public async Task<IActionResult> EditDoctor(int id, EditNurseDTO editNurseDTO)
+        {
+            var getNurse = await _context.nurses.FindAsync(id);
+            try
+            {
+                if (getNurse is null)
+                {
+                    return BadRequest("No Doctor was found");
+                }
+                _mapper.Map(editNurseDTO, getNurse);
+                await _context.SaveChangesAsync();
+            }
+            catch (System.Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+
+
+            return Ok("Update nurse  " + getNurse.User.FullName + " Successful");
+        }
+
     }
 }
