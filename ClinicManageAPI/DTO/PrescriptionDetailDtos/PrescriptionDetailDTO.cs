@@ -10,7 +10,7 @@ namespace ClinicManageAPI.DTO.PrescriptionDetailDtos
         public string? UsingDay { get; set; }
         public string? TimesPerDay { get; set; }
         public string? UsingType { get; set; }
-        public Session Session { get; set; }
+        public string Session { get; set; }
         public string? Description { get; set; }
     }
 
