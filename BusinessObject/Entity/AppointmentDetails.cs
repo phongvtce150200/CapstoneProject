@@ -15,5 +15,7 @@ namespace BusinessObject.Entity
         [ForeignKey(("ServiceId"))]
         public Service Service { get; set; }
         public string? Reason { get; set; }
+        [Required]
+        public decimal? SubTotal { get; set; }
     }
 }

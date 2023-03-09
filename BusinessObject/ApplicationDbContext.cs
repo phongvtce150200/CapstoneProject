@@ -29,6 +29,8 @@ namespace BusinessObject
         public DbSet<Test> tests { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<ReservedSchedule> reservedSchedules { get; set; }
+        public DbSet<MLExpert> mLExperts { get; set; }
+        public DbSet<MRITechnician> mRITechnicians { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -76,6 +78,8 @@ namespace BusinessObject
             builder.ApplyConfiguration(new PatientConfig());
             builder.ApplyConfiguration(new PrescriptionDetailsConfig());
             builder.ApplyConfiguration(new ReservedScheduleConfig());
+            builder.ApplyConfiguration(new MLExpertConfig());
+            builder.ApplyConfiguration(new MRITechnicianConfig());
             //Adding Seeder Data
             builder.Entity<Medicine>().SeedData();
             builder.Entity<Service>().SeedData();

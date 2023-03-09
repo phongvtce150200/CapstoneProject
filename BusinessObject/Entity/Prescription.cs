@@ -14,6 +14,5 @@ namespace BusinessObject.Entity
         [ForeignKey("AppointmentId")]
         public Appointment Appointment { get; set; }
         public ICollection<PrescriptionDetails> PrescriptionDetails { get; set; }
-        public Invoice Invoice { get; set; }
     }
 }
