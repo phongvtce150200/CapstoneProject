@@ -109,14 +109,14 @@ namespace ClinicManageAPI.Controllers
         }
 
         [HttpPut("EditNurse")]
-        public async Task<IActionResult> EditDoctor(int id, EditNurseDTO editNurseDTO)
+        public async Task<IActionResult> EditNurse(int id, EditNurseDTO editNurseDTO)
         {
             var getNurse = await _context.nurses.FindAsync(id);
             try
             {
                 if (getNurse is null)
                 {
-                    return BadRequest("No Doctor was found");
+                    return BadRequest("No Nurse was found");
                 }
                 _mapper.Map(editNurseDTO, getNurse);
                 await _context.SaveChangesAsync();
