@@ -23,6 +23,12 @@ namespace ClinicManageAPI.Controllers
             _mapper = mapper;
 
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllSchedules()
+        {
+            var schedules = await _context.reservedSchedules.ToListAsync();
+            return Ok(schedules);
+        }
 
         // GET: api/ReservedSchedules
         /* [HttpGet]
@@ -113,7 +119,8 @@ namespace ClinicManageAPI.Controllers
             try
             {
                 //var reservedSchedule = await _context.appointments.Where(x => x.DoctorId == DocId).Include(y => y.Schedule).ToListAsync();
-                var reservedSchedule = await _context.reservedSchedules.Include(x => x.Appointment).Where(x => x.Appointment.DoctorId == DocId).ToListAsync();
+                //var reservedSchedule = await _context.reservedSchedules.Include(x => x.Appointment).Where(x => x.Appointment.DoctorId == DocId).ToListAsync();
+                var reservedSchedule = await _context.reservedSchedules.Where(x => x.DocId == DocId).ToListAsync();
                 var map = _mapper.ProjectTo<ReservedScheduleInfoDTO>(reservedSchedule.AsQueryable());
                 if (reservedSchedule.Count <= 0)
                 {
