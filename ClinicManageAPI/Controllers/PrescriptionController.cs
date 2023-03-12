@@ -112,9 +112,9 @@ namespace ClinicManageAPI.Controllers
 
                 // Create and add new invoice
                 Invoice invoice = new Invoice();
-                invoice.Description = descriptionIn;
+                /*invoice.Description = descriptionIn;
                 invoice.Prescription = prescription;
-                await _context.invoices.AddAsync(invoice.PostInvoice(user));
+                await _context.invoices.AddAsync(invoice.PostInvoice(user));*/
                 await _context.SaveChangesAsync();
 
                 return Ok("Success");

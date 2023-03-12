@@ -16,6 +16,7 @@ namespace BusinessObject.Entity
         public int? PatientId { get; set; }
         [ForeignKey("PatientId")]
         public Patient Patient { get; set; }
+        public DateTime? AppointmentDate { get; set; }
         public Prescription Prescription { get; set; }
         public ReservedSchedule Schedule { get; set; }
         public Test Test { get; set; }

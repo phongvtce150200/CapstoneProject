@@ -8,9 +8,9 @@ namespace BusinessObject.Entity
 {
     public class ReservedSchedule : BaseEntity
     {
-        [Required]
-        [ForeignKey("DocId")]
+        
         public int? DocId { get; set; }
+        [ForeignKey("DocId")]
         public Doctor Doctor { get; set; }
         [Required]
         public string? Title { get; set; }

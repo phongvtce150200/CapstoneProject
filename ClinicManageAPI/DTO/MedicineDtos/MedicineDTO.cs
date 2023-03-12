@@ -10,6 +10,7 @@ namespace ClinicManageAPI.DTO.MedicineDtos
         public DateTime Expiration { get; set; }
         public int? InStock { get; set; }
         public string? Description { get; set; }
+        public bool IsDelete { get; set; }
     }
 }
 

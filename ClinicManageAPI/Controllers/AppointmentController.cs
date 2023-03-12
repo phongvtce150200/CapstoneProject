@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObject;
+using BusinessObject.Entity;
 using ClinicManageAPI.DTO.AppointmentDtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,18 @@ namespace ClinicManageAPI.Controllers
             string jsons = JsonConvert.SerializeObject(map, jss);
             return Content(jsons, "application/json");
             //return Ok(getAppointmentInfomation);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateAppointment(CreateAppointmentDTO createAppointmentDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                var map = _mapper.Map<Appointment>(createAppointmentDTO);
+                _context.appointments.Add(map);
+                await _context.SaveChangesAsync();  
+                return Ok("Create Appointment Successfully");    
+            }
+            return BadRequest("Create Appointment Fail");
         }
     }
 }

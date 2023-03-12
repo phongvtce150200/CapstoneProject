@@ -51,6 +51,8 @@ namespace ClinicManageAPI.MapperConfig
             CreateMap<EditNurseDTO, Nurse>().ReverseMap();
             CreateMap<EditNurseInfoDTO, User>().ReverseMap();
             CreateMap<EditUserDTO, User>().ReverseMap();
+            CreateMap<CreateAppointmentDTO, Appointment>().ReverseMap();
+            CreateMap<CreateAppointmentDetailsDTO, AppointmentDetails>().ReverseMap();
         }
     }
 }
