@@ -2,7 +2,9 @@
 using BusinessObject;
 using BusinessObject.Entity;
 using ClinicManageAPI.DTO;
+using ClinicManageAPI.DTO.NurseDtos;
 using ClinicManageAPI.DTO.PatientDtos;
+using ClinicManageAPI.DTO.UserDtos;
 using ClinicManageAPI.Extentions;
 using ClinicManageAPI.ServiceAPI.Paginations;
 using Microsoft.AspNetCore.Identity;
@@ -51,7 +53,7 @@ namespace ClinicManageAPI.Controllers
         {
             var user = await _context.patients.Include(x => x.User).ToListAsync();
             if (user == null) return BadRequest("Don't have any User with role Patient");
-            var Patient = _mapper.ProjectTo<PatientDTO>(user.AsQueryable().Where(x => x.Id == id));
+            var Patient =  _mapper.ProjectTo<PatientDTO>(user.AsQueryable().Where(x => x.Id == id)).FirstOrDefault();
             /*var result = new PageList<PatientDTO>(Patient.AsQueryable()/*, resultPage.PageIndex, resultPage.PageSize);*/
             return Ok(Patient);
         }
@@ -81,5 +83,18 @@ namespace ClinicManageAPI.Controllers
             _context.SaveChanges();
             return Ok("Restore Nurse " + patient.User.FullName + " Successfully");
         }
+
+        [HttpPut("EditPatientInfomation/{id}")]
+        public async Task<IActionResult> EditPatientInfomation(int id,EditUserDTO editUserDTO)
+        {
+            var check = await _context.Users.Include(x => x.Patient).Where(x => x.Patient.Id == id).FirstOrDefaultAsync();
+            if(check is null)
+            {
+                return NotFound("User invalid");
+            }
+            _mapper.Map(editUserDTO, check);
+            await _context.SaveChangesAsync();
+            return Ok("Edit User Successfully");
+        } 
     }
 }

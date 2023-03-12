@@ -144,7 +144,7 @@ namespace ClinicManageAPI.Controllers
                 var schedules = await _context.reservedSchedules.Where(x => x.DocId == DocId && x.Start.Day == date.Day && x.Start.Month == date.Month && x.Start.Year == date.Year).ToListAsync();
                 if (schedules.Count < 1)
                 {
-                    return NotFound("Cannot find any working schedules!");
+                    return Ok("schedules of doctor is empty!");
                 }
                 return Ok(schedules);
             }
