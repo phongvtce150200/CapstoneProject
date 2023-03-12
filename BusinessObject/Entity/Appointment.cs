@@ -19,6 +19,7 @@ namespace BusinessObject.Entity
         public DateTime? AppointmentDate { get; set; }
         public Prescription Prescription { get; set; }
         public ReservedSchedule Schedule { get; set; }
+        public decimal? SubTotal { get; set; }
         public Test Test { get; set; }
         public ICollection<AppointmentDetails> AppointmentDetails { get; set; }
         public ICollection<Invoice> Invoices { get; set; }

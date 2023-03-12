@@ -21,18 +21,17 @@ namespace ClinicManageAPI.Controllers
             _context = context;
             _mapper = mapper;
         }
-
+        
         [HttpGet]
-        public async Task<IActionResult> GetAppointmentById(int id)
+        public async Task<IActionResult> GetAppointments()
         {
-            var getAppointmentInfomation = await _context.appointments.Include(x => x.Patient).ThenInclude(x => x.User)
-                .Include(y => y.Doctor).ThenInclude(y => y.User).FirstOrDefaultAsync();
-            var map = _mapper.Map<GetInfoAppointmentDTO>(getAppointmentInfomation);
-            JsonSerializerSettings jss = new JsonSerializerSettings();
+            var getAppointmentInfomation = await _context.appointments.ToListAsync();
+            //var map = _mapper.Map<GetInfoAppointmentDTO>(getAppointmentInfomation);
+            /*JsonSerializerSettings jss = new JsonSerializerSettings();
             jss.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             string jsons = JsonConvert.SerializeObject(map, jss);
-            return Content(jsons, "application/json");
-            //return Ok(getAppointmentInfomation);
+            return Content(jsons, "application/json");*/
+            return Ok(getAppointmentInfomation);
         }
         [HttpPost]
         public async Task<IActionResult> CreateAppointment(CreateAppointmentDTO createAppointmentDTO)
@@ -40,7 +39,7 @@ namespace ClinicManageAPI.Controllers
             if (ModelState.IsValid)
             {
                 var map = _mapper.Map<Appointment>(createAppointmentDTO);
-                _context.appointments.Add(map);
+                await _context.appointments.AddAsync(map);
                 await _context.SaveChangesAsync();  
                 return Ok("Create Appointment Successfully");    
             }
